@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
+
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>,
@@ -49,8 +50,9 @@ export class UserService {
     }
     const jwt = this.jwtService.sign({ id: user.id });
     delete user.password;
-    return { userInfo: user, token: jwt };
+    return { userInfo: user, access_token: jwt };
   }
+
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.userRepo.findOne(username);
     if (user && user.password === pass) {
