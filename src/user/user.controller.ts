@@ -24,14 +24,22 @@ export class UserController {
     return this.userService.findOne(params.id);
   }
 
-  @Post()
-  create(@Body() task: UserEntity) {
-    return this.userService.create(task);
+  @Post('login')
+  login(
+    @Body('username') username: string,
+    @Body('password') password: string,
+  ) {
+    return this.userService.login(username, password);
+  }
+
+  @Post('register')
+  register(@Body() user: UserEntity) {
+    return this.userService.register(user);
   }
 
   @Put()
-  update(@Body() task: UserEntity) {
-    return this.userService.update(task);
+  update(@Body() user: UserEntity) {
+    return this.userService.update(user);
   }
 
   @Delete(':id')
