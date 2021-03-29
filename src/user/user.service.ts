@@ -3,12 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { UserEntity } from './user.entity';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>,
+    private jwtService: JwtService,
   ) {}
 
   async findAll(): Promise<UserEntity[]> {
@@ -45,8 +47,9 @@ export class UserService {
     if (!(await bcrypt.compare(password, user.password))) {
       throw new BadRequestException('Invalid password');
     }
+    const jwt = this.jwtService.sign({ id: user.id });
     delete user.password;
-    return { userInfo: user, token: '' };
+    return { userInfo: user, token: jwt };
   }
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.userRepo.findOne(username);
