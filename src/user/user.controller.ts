@@ -10,7 +10,7 @@ import {
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 
-@Controller('api/user')
+@Controller('v1/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -20,8 +20,8 @@ export class UserController {
   }
 
   @Get(':id')
-  get(@Param() params) {
-    return this.userService.findOne(params.id);
+  get(@Param() id:number) {
+    return this.userService.findOne(id);
   }
 
   @Post('login')
@@ -43,7 +43,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  deleteUser(@Param() params) {
-    return this.userService.delete(params.id);
+  deleteUser(@Param('id') id: number) {
+    return this.userService.delete(id);
   }
 }

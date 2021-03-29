@@ -25,6 +25,7 @@ export class UserService {
       fullName: user.fullName,
       username: user.username,
       password: hashedPassword,
+      role: user.role,
     });
   }
 
@@ -44,6 +45,15 @@ export class UserService {
     if (!(await bcrypt.compare(password, user.password))) {
       throw new BadRequestException('Invalid password');
     }
+    delete user.password;
     return { userInfo: user, token: '' };
+  }
+  async validateUser(username: string, pass: string): Promise<any> {
+    const user = await this.userRepo.findOne(username);
+    if (user && user.password === pass) {
+      const { password, ...result } = user;
+      return result;
+    }
+    return null;
   }
 }
