@@ -10,7 +10,7 @@ async function bootstrap() {
   const options = new DocumentBuilder().setTitle('CanTin API').build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('v1/docs', app, document);
+  SwaggerModule.setup('docs', app, document);
 
   await app.listen(process.env.PORT || 8080);
   logger.log(`Server is running in ${await app.getUrl()}`);

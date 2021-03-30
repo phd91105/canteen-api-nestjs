@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { UserEntity } from './user.entity';
@@ -7,7 +7,6 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
-
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>,
@@ -28,12 +27,11 @@ export class UserService {
       fullName: user.fullName,
       username: user.username,
       password: hashedPassword,
-      role: user.role,
     });
   }
 
-  async update(user: UserEntity): Promise<UpdateResult> {
-    return await this.userRepo.update(user.id, user);
+  async update(id: number, user: UserEntity): Promise<UpdateResult> {
+    return await this.userRepo.update(id, user);
   }
 
   async delete(id: number): Promise<DeleteResult> {
@@ -51,14 +49,5 @@ export class UserService {
     const jwt = this.jwtService.sign({ id: user.id });
     delete user.password;
     return { userInfo: user, access_token: jwt };
-  }
-
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.userRepo.findOne(username);
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
   }
 }
