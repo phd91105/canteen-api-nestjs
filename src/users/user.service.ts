@@ -27,12 +27,11 @@ export class UserService {
       fullName: user.fullName,
       username: user.username,
       password: hashedPassword,
-      role: user.role,
     });
   }
 
-  async update(user: UserEntity): Promise<UpdateResult> {
-    return await this.userRepo.update(user.id, user);
+  async update(id: number, user: UserEntity): Promise<UpdateResult> {
+    return await this.userRepo.update(id, user);
   }
 
   async delete(id: number): Promise<DeleteResult> {
