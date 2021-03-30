@@ -23,7 +23,7 @@ export class UserService {
 
   async register(user: UserEntity): Promise<UserEntity> {
     const hashedPassword = await bcrypt.hash(user.password, 12);
-    return this.userRepo.save({
+    return await this.userRepo.save({
       email: user.email,
       fullName: user.fullName,
       username: user.username,

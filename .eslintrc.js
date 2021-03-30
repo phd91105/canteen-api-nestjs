@@ -1,6 +1,5 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  "linebreak-style": ["error", "windows"],
   parserOptions: {
     project: 'tsconfig.json',
     sourceType: 'module',
