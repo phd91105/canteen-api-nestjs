@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { UserEntity } from './user.entity';
@@ -16,18 +16,21 @@ export class UserService {
   async findAll(): Promise<UserEntity[]> {
     return await this.userRepo.find();
   }
-  async findOne(id: number): Promise<UserEntity> {
-    return await this.userRepo.findOne(id);
+  async findOne(id: number): Promise<any> {
+    const usr = await this.userRepo.findOne(id);
+    delete usr.password;
+    return usr ? usr : { status: HttpStatus.NOT_FOUND, msg: 'Not found' };
   }
 
-  async register(user: UserEntity): Promise<UserEntity> {
-    const hashedPassword = await bcrypt.hash(user.password, 12);
-    return await this.userRepo.save({
-      email: user.email,
-      fullName: user.fullName,
-      username: user.username,
-      password: hashedPassword,
-    });
+  async register(user: UserEntity): Promise<any> {
+    const username = user.username;
+    const usr = await this.userRepo.findOne({ username });
+    if (!usr) {
+      const hashedPassword = await bcrypt.hash(user.password, 12);
+      user.password = hashedPassword;
+      return await this.userRepo.save(user);
+    } else
+      return { status: HttpStatus.BAD_REQUEST, msg: 'User already exists' };
   }
 
   async update(id: number, user: UserEntity): Promise<UpdateResult> {
@@ -48,6 +51,6 @@ export class UserService {
     }
     const jwt = this.jwtService.sign({ id: user.id });
     delete user.password;
-    return { userInfo: user, access_token: jwt };
+    return { msg: 'Login success', token: jwt };
   }
 }
