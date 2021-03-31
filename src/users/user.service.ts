@@ -27,12 +27,8 @@ export class UserService {
     const usr = await this.userRepo.findOne({ username });
     if (!usr) {
       const hashedPassword = await bcrypt.hash(user.password, 12);
-      return await this.userRepo.save({
-        email: user.email,
-        fullName: user.fullName,
-        username: user.username,
-        password: hashedPassword,
-      });
+      user.password = hashedPassword;
+      return await this.userRepo.save(user);
     } else
       return { status: HttpStatus.BAD_REQUEST, msg: 'User already exists' };
   }
