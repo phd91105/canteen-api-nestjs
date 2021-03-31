@@ -7,7 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger();
 
-  const options = new DocumentBuilder().setTitle('CanTin API').build();
+  const options = new DocumentBuilder()
+    .setTitle('CanTin')
+    .addBearerAuth()
+    .build();
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
