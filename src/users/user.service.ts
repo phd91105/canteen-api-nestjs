@@ -17,14 +17,15 @@ export class UserService {
     return await this.userRepo.find();
   }
   async findOne(id: number): Promise<any> {
-    return (await this.userRepo.findOne(id))
-      ? this.userRepo.findOne(id)
-      : { status: HttpStatus.NOT_FOUND, msg: 'Not found' };
+    const usr = await this.userRepo.findOne(id);
+    delete usr.password;
+    return usr ? usr : { status: HttpStatus.NOT_FOUND, msg: 'Not found' };
   }
 
   async register(user: UserEntity): Promise<any> {
-    const username = await this.userRepo.findOne(user.username);
-    if (!username) {
+    const username = user.username;
+    const usr = await this.userRepo.findOne({ username });
+    if (!usr) {
       const hashedPassword = await bcrypt.hash(user.password, 12);
       return await this.userRepo.save({
         email: user.email,
