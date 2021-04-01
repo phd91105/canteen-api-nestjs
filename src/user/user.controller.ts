@@ -13,7 +13,7 @@ import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 
-@Controller('v1')
+@Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -50,7 +50,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Put('user/:id')
   update(@Param('id') id: number, @Body() user: UserEntity) {
-    return this.userService.update(id, user);
+    return this.userService.update({ id, user });
   }
 
   @ApiBearerAuth()

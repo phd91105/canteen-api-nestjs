@@ -1,4 +1,8 @@
-import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { UserEntity } from './user.entity';
@@ -17,9 +21,9 @@ export class UserService {
     return await this.userRepo.find();
   }
   async findOne(id: number): Promise<any> {
-    const usr = await this.userRepo.findOne(id);
-    delete usr.password;
-    return usr ? usr : { status: HttpStatus.NOT_FOUND, msg: 'Not found' };
+    if (await this.userRepo.findOne(id)) {
+      return this.userRepo.findOne(id);
+    } else throw new NotFoundException();
   }
 
   async register(user: UserEntity): Promise<any> {
@@ -29,11 +33,16 @@ export class UserService {
       const hashedPassword = await bcrypt.hash(user.password, 12);
       user.password = hashedPassword;
       return await this.userRepo.save(user);
-    } else
-      return { status: HttpStatus.BAD_REQUEST, msg: 'User already exists' };
+    } else throw new BadRequestException('User Already Exists');
   }
 
-  async update(id: number, user: UserEntity): Promise<UpdateResult> {
+  async update({
+    id,
+    user,
+  }: {
+    id: number;
+    user: UserEntity;
+  }): Promise<UpdateResult> {
     return await this.userRepo.update(id, user);
   }
 
@@ -42,15 +51,18 @@ export class UserService {
   }
 
   async login(username: string, password: string): Promise<any> {
-    const user = await this.userRepo.findOne({ username });
+    const regex = /\S+@\S+\.\S+/;
+    const isEmail = regex.test(username);
+    const user = !isEmail
+      ? await this.userRepo.findOne({ username })
+      : await this.userRepo.findOne({ email: username });
     if (!user) {
-      throw new BadRequestException('Invalid username');
+      throw new BadRequestException('Invalid Username');
     }
     if (!(await bcrypt.compare(password, user.password))) {
-      throw new BadRequestException('Invalid password');
+      throw new BadRequestException('Invalid Password');
     }
     const jwt = this.jwtService.sign({ id: user.id });
-    delete user.password;
-    return { msg: 'Login success', token: jwt };
+    return { msg: 'Login Successful', token: jwt };
   }
 }

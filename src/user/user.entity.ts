@@ -1,13 +1,14 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { IsEmail, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class UserEntity {
+  @ApiProperty({ type: Number, description: 'id' })
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @IsEmail()
+  @IsString()
   @ApiProperty({ type: String, description: 'email' })
   @Column('text')
   public email: string;
