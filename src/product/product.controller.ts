@@ -1,9 +1,9 @@
 import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
-// import { ProductsService } from './products.service';
+import { ProductService } from './product.service';
 
-@Controller('v1')
-export class ProductsController {
-  //   constructor(private readonly productService: ProductsService) {}
+@Controller()
+export class ProductController {
+  constructor(private readonly productService: ProductService) {}
   @Post('product')
   createProduct() {
     return 'list product';

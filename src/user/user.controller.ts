@@ -13,7 +13,7 @@ import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 
-@Controller('v1')
+@Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
