@@ -50,7 +50,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Put('user/:id')
   update(@Param('id') id: number, @Body() user: UserEntity) {
-    return this.userService.update(id, user);
+    return this.userService.update({ id, user });
   }
 
   @ApiBearerAuth()
