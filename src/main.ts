@@ -8,10 +8,11 @@ async function bootstrap() {
   const logger = new Logger();
 
   const options = new DocumentBuilder()
-    .setTitle('CanTin')
+    .setTitle('Canteen Foods Ordering System API')
+    .setDescription('The REST API for CanTeen Foods Ordering System')
+    .setVersion('1.0')
     .addBearerAuth()
     .build();
-
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 
