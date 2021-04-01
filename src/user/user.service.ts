@@ -16,7 +16,6 @@ export class UserService {
     private readonly userRepo: Repository<UserEntity>,
     private jwtService: JwtService,
   ) {}
-
   async findAll(): Promise<UserEntity[]> {
     return await this.userRepo.find();
   }
@@ -25,17 +24,15 @@ export class UserService {
       return this.userRepo.findOne(id);
     } else throw new NotFoundException();
   }
-
   async register(user: UserEntity): Promise<any> {
-    const username = user.username;
-    const usr = await this.userRepo.findOne({ username });
+    const username: string = user.username;
+    const usr: UserEntity = await this.userRepo.findOne({ username });
     if (!usr) {
       const hashedPassword = await bcrypt.hash(user.password, 12);
       user.password = hashedPassword;
       return await this.userRepo.save(user);
     } else throw new BadRequestException('User Already Exists');
   }
-
   async update({
     id,
     user,
@@ -45,16 +42,14 @@ export class UserService {
   }): Promise<UpdateResult> {
     return await this.userRepo.update(id, user);
   }
-
   async delete(id: number): Promise<DeleteResult> {
     return await this.userRepo.delete(id);
   }
-
   async login(username: string, password: string): Promise<any> {
-    const regex = /\S+@\S+\.\S+/;
-    const isEmail = regex.test(username);
-    const user = !isEmail
-      ? await this.userRepo.findOne({ username })
+    const regex: any = /\S+@\S+\.\S+/;
+    const isEmail: boolean = regex.test(username);
+    const user: UserEntity = !isEmail
+      ? await this.userRepo.findOne({ username: username })
       : await this.userRepo.findOne({ email: username });
     if (!user) {
       throw new BadRequestException('Invalid Username');
@@ -62,7 +57,10 @@ export class UserService {
     if (!(await bcrypt.compare(password, user.password))) {
       throw new BadRequestException('Invalid Password');
     }
-    const jwt = this.jwtService.sign({ id: user.id });
+    const jwt: string = this.jwtService.sign({
+      id: user.id,
+      usr: user.username,
+    });
     return { msg: 'Login Successful', token: jwt };
   }
 }
