@@ -33,7 +33,7 @@ export class UserService {
       const hashedPassword = await bcrypt.hash(user.password, 12);
       user.password = hashedPassword;
       return await this.userRepo.save(user);
-    } else throw new BadRequestException('user already exists');
+    } else throw new BadRequestException('User Already Exists');
   }
 
   async update({
@@ -57,12 +57,12 @@ export class UserService {
       ? await this.userRepo.findOne({ username })
       : await this.userRepo.findOne({ email: username });
     if (!user) {
-      throw new BadRequestException('invalid username');
+      throw new BadRequestException('Invalid Username');
     }
     if (!(await bcrypt.compare(password, user.password))) {
-      throw new BadRequestException('invalid password');
+      throw new BadRequestException('Invalid Password');
     }
     const jwt = this.jwtService.sign({ id: user.id });
-    return { msg: 'login successful', token: jwt };
+    return { msg: 'Login Successful', token: jwt };
   }
 }
