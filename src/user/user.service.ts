@@ -61,6 +61,6 @@ export class UserService {
       id: user.id,
       usr: user.username,
     });
-    return { msg: 'Login Successful', token: jwt };
+    return { message: 'Login Successful', token: jwt };
   }
 }
