@@ -8,7 +8,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
@@ -26,14 +26,14 @@ export class UserController {
     return this.userService.login(username, password);
   }
   @Post('register')
-  @ApiBody({ type: UserEntity })
-  register(@Body() user: UserEntity) {
+  @ApiBody({ type: User })
+  register(@Body() user: User) {
     return this.userService.register(user);
   }
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('users')
-  findAll(): Promise<UserEntity[]> {
+  findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
   @ApiBearerAuth()
@@ -45,7 +45,7 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Put('user/:id')
-  update(@Param('id') id: number, @Body() user: UserEntity) {
+  update(@Param('id') id: number, @Body() user: User) {
     return this.userService.update({ id, user });
   }
   @ApiBearerAuth()

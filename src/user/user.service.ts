@@ -5,18 +5,18 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepo: Repository<UserEntity>,
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
     private jwtService: JwtService,
   ) {}
-  async findAll(): Promise<UserEntity[]> {
+  async findAll(): Promise<User[]> {
     return await this.userRepo.find();
   }
   async findOne(id: number): Promise<any> {
@@ -24,9 +24,9 @@ export class UserService {
       return this.userRepo.findOne(id);
     } else throw new NotFoundException();
   }
-  async register(user: UserEntity): Promise<any> {
+  async register(user: User): Promise<any> {
     const username: string = user.username;
-    const usr: UserEntity = await this.userRepo.findOne({ username });
+    const usr: User = await this.userRepo.findOne({ username });
     if (!usr) {
       const hashedPassword = await bcrypt.hash(user.password, 12);
       user.password = hashedPassword;
@@ -38,7 +38,7 @@ export class UserService {
     user,
   }: {
     id: number;
-    user: UserEntity;
+    user: User;
   }): Promise<UpdateResult> {
     return await this.userRepo.update(id, user);
   }
@@ -48,7 +48,7 @@ export class UserService {
   async login(username: string, password: string): Promise<any> {
     const regex: any = /\S+@\S+\.\S+/;
     const isEmail: boolean = regex.test(username);
-    const user: UserEntity = !isEmail
+    const user: User = !isEmail
       ? await this.userRepo.findOne({ username: username })
       : await this.userRepo.findOne({ email: username });
     if (!user) {
