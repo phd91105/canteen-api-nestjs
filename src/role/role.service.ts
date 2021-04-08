@@ -23,8 +23,8 @@ export class RoleService {
     return await this.roleRepo.save(role);
   }
 
-  async update(role: Role): Promise<UpdateResult> {
-    return await this.roleRepo.update(role.id, role);
+  async update(id: number, role: Role): Promise<UpdateResult> {
+    return await this.roleRepo.update(id, role);
   }
 
   async delete(id: number): Promise<DeleteResult> {

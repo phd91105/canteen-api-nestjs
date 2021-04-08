@@ -17,6 +17,7 @@ import LoginModel from '../swagger/login.model';
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
   @Post('login')
   @ApiBody({ type: LoginModel })
   login(
@@ -25,29 +26,34 @@ export class UserController {
   ) {
     return this.userService.login(username, password);
   }
+
   @Post('register')
   @ApiBody({ type: User })
   register(@Body() user: User) {
     return this.userService.register(user);
   }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('users')
   findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('user/:id')
   get(@Param('id') id: number) {
     return this.userService.findOne(id);
   }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Put('user/:id')
   update(@Param('id') id: number, @Body() user: User) {
-    return this.userService.update({ id, user });
+    return this.userService.update(id, user);
   }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Delete('user/:id')
