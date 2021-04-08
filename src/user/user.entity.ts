@@ -1,9 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Role } from 'src/role/role.entity';
 
 @Entity()
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn()
   public id: number;
   @IsString()
@@ -22,4 +29,11 @@ export class UserEntity {
   @ApiProperty({ type: String, description: 'password' })
   @Column('text')
   public password: string;
+  @ApiProperty({ type: Number, description: 'roleId' })
+  @OneToOne(() => Role, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn()
+  public role: Role;
 }
