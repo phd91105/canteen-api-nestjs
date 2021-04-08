@@ -38,6 +38,8 @@ export class UserService {
   }
 
   async update(id: number, user: User): Promise<UpdateResult> {
+    const hashedPassword = await bcrypt.hash(user.password, 12);
+    user.password = hashedPassword;
     return await this.userRepo.update(id, user);
   }
 

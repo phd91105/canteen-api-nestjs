@@ -5,7 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../role/role.entity';
 
@@ -15,26 +15,32 @@ export class User {
   public id: number;
 
   @IsString()
-  @ApiProperty({ type: String, description: 'email' })
-  @Column('text')
+  @IsEmail()
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  @Column()
   public email: string;
 
   @IsString()
-  @ApiProperty({ type: String, description: 'fullname' })
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
   @Column({ length: 50 })
   public fullName: string;
 
   @IsString()
-  @ApiProperty({ type: String, description: 'username' })
-  @Column('text')
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  @Column()
   public username: string;
 
   @IsString()
-  @ApiProperty({ type: String, description: 'password' })
-  @Column('text')
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  @Column()
   public password: string;
 
-  @ApiProperty({ type: Number, description: 'roleId' })
+  @IsNotEmpty()
+  @ApiProperty({ type: Number })
   @OneToOne(() => Role, {
     eager: true,
     cascade: true,
