@@ -11,32 +11,33 @@ import { RoleService } from './role.service';
 import { Role } from './role.entity';
 import { ApiBody } from '@nestjs/swagger';
 
-@Controller('roles')
+@Controller()
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
-  @Get()
+  @Get('roles')
   findAll(): Promise<Role[]> {
     return this.roleService.findAll();
   }
 
-  @Get(':id')
-  get(@Param() params) {
-    return this.roleService.findOne(params.id);
+  @Get('role/:id')
+  get(@Param('id') id: number) {
+    return this.roleService.findOne(id);
   }
+
   @ApiBody({ type: Role })
-  @Post()
+  @Post('role')
   create(@Body() role: Role) {
     return this.roleService.create(role);
   }
 
-  @Put()
-  update(@Body() role: Role) {
-    return this.roleService.update(role);
+  @Put('role/:id')
+  update(@Param('id') id: number, @Body() role: Role) {
+    return this.roleService.update(id, role);
   }
 
-  @Delete(':id')
-  deleteUser(@Param() params) {
-    return this.roleService.delete(params.id);
+  @Delete('role/:id')
+  deleteUser(@Param('id') id: number) {
+    return this.roleService.delete(id);
   }
 }
