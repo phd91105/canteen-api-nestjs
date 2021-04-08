@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export default class LoginModel {
-  @ApiProperty({ type: String, description: 'username' })
+  @ApiProperty({ type: String })
   username: string;
-  @ApiProperty({ type: String, description: 'password' })
+
+  @ApiProperty({ type: String })
   password: string;
 }
