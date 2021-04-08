@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  cantin-api:
+    container_name: cantin-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    sysctls:
+      net.ipv4.ip_local_port_range: 49152 65535
