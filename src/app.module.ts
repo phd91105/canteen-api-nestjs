@@ -5,9 +5,18 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { RoleModule } from './role/role.module';
+import { CategoryModule } from './category/category.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), UserModule, ProductModule, RoleModule],
+  imports: [
+    TypeOrmModule.forRoot(),
+    UserModule,
+    ProductModule,
+    RoleModule,
+    CategoryModule,
+    CartModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
