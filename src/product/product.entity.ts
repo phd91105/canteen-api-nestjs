@@ -1,6 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Cart } from 'src/cart/cart.entity';
+import { Category } from 'src/category/category.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Product {
@@ -35,7 +43,19 @@ export class Product {
   public stock: number;
 
   @IsNumberString()
-  @ApiProperty({ type: Number })
   @Column()
   public viewCount: number;
+
+  @IsNotEmpty()
+  @ApiProperty({ type: Number })
+  @ManyToOne(() => Category, () => Category, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn()
+  public category: Category;
+
+  @IsNotEmpty()
+  @ManyToOne(() => Cart, (cart: Cart) => cart.product)
+  public cart: Cart;
 }
