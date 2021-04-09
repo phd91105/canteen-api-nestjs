@@ -11,8 +11,7 @@ import {
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
-import LoginModel from '../swagger/login.model';
+import { ApiBearerAuth, ApiBody, ApiProperty } from '@nestjs/swagger';
 
 @Controller()
 export class UserController {
@@ -60,4 +59,12 @@ export class UserController {
   deleteUser(@Param('id') id: number) {
     return this.userService.delete(id);
   }
+}
+
+export default class LoginModel {
+  @ApiProperty({ type: String })
+  username: string;
+
+  @ApiProperty({ type: String })
+  password: string;
 }
