@@ -13,7 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'secretKey',
-      signOptions: { expiresIn: '15d' },
+      signOptions: { expiresIn: '3d' },
     }),
   ],
   providers: [UserService, JwtStrategy],
