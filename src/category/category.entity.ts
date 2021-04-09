@@ -18,5 +18,5 @@ export class Category {
   desc: string;
 
   @OneToMany(() => Product, (product: Product) => product.id)
-  public product: Product;
+  public product: Product[];
 }

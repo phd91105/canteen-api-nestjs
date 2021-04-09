@@ -7,7 +7,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -44,13 +43,12 @@ export class Product {
   public stock: number;
 
   @IsNumberString()
-  @ApiProperty({ type: Number })
   @Column()
   public viewCount: number;
 
   @IsNotEmpty()
   @ApiProperty({ type: Number })
-  @OneToOne(() => Category, {
+  @ManyToOne(() => Category, () => Category, {
     eager: true,
     cascade: true,
   })
