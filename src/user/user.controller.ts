@@ -7,11 +7,13 @@ import {
   Post,
   Put,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiBearerAuth, ApiBody, ApiProperty } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import LoginModel from 'src/dto/login.dto';
 
 @Controller()
 export class UserController {
@@ -28,7 +30,7 @@ export class UserController {
 
   @Post('register')
   @ApiBody({ type: User })
-  register(@Body() user: User) {
+  register(@Body(new ValidationPipe()) user: User) {
     return this.userService.register(user);
   }
 
@@ -59,12 +61,4 @@ export class UserController {
   deleteUser(@Param('id') id: number) {
     return this.userService.delete(id);
   }
-}
-
-export default class LoginModel {
-  @ApiProperty({ type: String })
-  username: string;
-
-  @ApiProperty({ type: String })
-  password: string;
 }
