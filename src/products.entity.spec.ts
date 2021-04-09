@@ -1,7 +1,0 @@
-import { ProductsEntity } from './product/product.entity';
-
-describe('ProductsEntity', () => {
-  it('should be defined', () => {
-    expect(new ProductsEntity()).toBeDefined();
-  });
-});
