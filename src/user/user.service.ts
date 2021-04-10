@@ -48,8 +48,8 @@ export class UserService {
   }
 
   async login(username: string, password: string): Promise<any> {
-    const regex: any = /\S+@\S+\.\S+/;
-    const isEmail: boolean = regex.test(username);
+    const emailRegex = /\S+@\S+\.\S+/;
+    const isEmail: boolean = emailRegex.test(username);
     const user: User = !isEmail
       ? await this.userRepo.findOne({ username: username })
       : await this.userRepo.findOne({ email: username });
