@@ -1,50 +1,51 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
-import { Cart } from 'src/cart/cart.entity';
 import { Category } from 'src/category/category.entity';
+import { OrderDetail } from 'src/orderdetail/orderdetail.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id: number;
 
   @IsNotEmpty()
   @IsString()
   @ApiProperty({ type: String })
   @Column()
-  public name: string;
+  name: string;
 
   @IsString()
   @ApiProperty({ type: String })
   @Column()
-  public desc: string;
+  desc: string;
 
   @IsString()
   @ApiProperty({ type: String })
   @Column()
-  public details: string;
+  details: string;
 
   @IsNotEmpty()
   @IsNumberString()
   @ApiProperty({ type: Number })
   @Column()
-  public price: number;
+  price: number;
 
   @IsNumberString()
   @ApiProperty({ type: Number })
   @Column()
-  public stock: number;
+  stock: number;
 
   @IsNumberString()
   @Column()
-  public viewCount: number;
+  viewCount: number;
 
   @IsNotEmpty()
   @ApiProperty({ type: Number })
@@ -53,9 +54,8 @@ export class Product {
     cascade: true,
   })
   @JoinColumn()
-  public category: Category;
+  category: Category;
 
-  @IsNotEmpty()
-  @ManyToOne(() => Cart, (cart: Cart) => cart.product)
-  public cart: Cart;
+  @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail.id)
+  public orderDetail: OrderDetail[];
 }

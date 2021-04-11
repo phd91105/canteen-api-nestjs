@@ -18,5 +18,5 @@ export class Role {
   desc: string;
 
   @OneToOne(() => User, (user: User) => user.role)
-  public user: User;
+  user: User;
 }

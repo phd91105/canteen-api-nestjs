@@ -2,42 +2,44 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../role/role.entity';
+import { Order } from 'src/order/order.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id: number;
 
   @IsString()
   @IsEmail()
   @IsNotEmpty()
   @ApiProperty({ type: String })
   @Column()
-  public email: string;
+  email: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String })
   @Column({ length: 50 })
-  public fullName: string;
+  fullName: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String })
   @Column()
-  public username: string;
+  username: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String })
   @Column()
-  public password: string;
+  password: string;
 
   @IsNotEmpty()
   @ApiProperty({ type: Number })
@@ -46,5 +48,8 @@ export class User {
     cascade: true,
   })
   @JoinColumn()
-  public role: Role;
+  role: Role;
+
+  @OneToMany(() => Order, (order: Order) => order.id)
+  public order: Order[];
 }
