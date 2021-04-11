@@ -1,3 +1,5 @@
+import { VnpayModule } from './payment/vnpay/vnpay.module';
+import { MomoModule } from './payment/momo/momo.module';
 import { OrderDetailModule } from './orderdetail/orderdetail.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,6 +13,8 @@ import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
+    VnpayModule,
+    MomoModule,
     OrderDetailModule,
     TypeOrmModule.forRoot(),
     UserModule,

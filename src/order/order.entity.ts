@@ -29,8 +29,8 @@ export class Order {
   status: string;
 
   @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail.id)
-  public orderDetail: OrderDetail[];
+  orderDetail: OrderDetail[];
 
   @ManyToOne(() => User, (user: User) => user.id)
-  public user: User;
+  user: User;
 }
