@@ -2,12 +2,13 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
-  JoinColumn,
-  OneToOne,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
-import { Cart } from 'src/cart/cart.entity';
+import { OrderDetail } from 'src/orderdetail/orderdetail.entity';
+import { User } from 'src/user/user.entity';
 
 @Entity()
 export class Order {
@@ -27,10 +28,9 @@ export class Order {
   @ApiProperty({ type: String })
   status: string;
 
-  @OneToOne(() => Cart, {
-    eager: true,
-    cascade: true,
-  })
-  @JoinColumn()
-  public cart: Cart;
+  @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail.id)
+  public orderDetail: OrderDetail[];
+
+  @ManyToOne(() => User, (user: User) => user.id)
+  public user: User;
 }
