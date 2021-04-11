@@ -12,7 +12,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Product {
+export class Food {
   @PrimaryGeneratedColumn()
   id: number;
 
