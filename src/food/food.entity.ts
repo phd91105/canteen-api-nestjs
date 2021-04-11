@@ -57,5 +57,5 @@ export class Food {
   category: Category;
 
   @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail.id)
-  public orderDetail: OrderDetail[];
+  orderDetail: OrderDetail[];
 }

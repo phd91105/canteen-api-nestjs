@@ -28,8 +28,8 @@ export class OrderDetail {
   quantity: number;
 
   @ManyToOne(() => Order, (order: Order) => order.id)
-  public order: Order;
+  order: Order;
 
   @ManyToOne(() => Food, (food: Food) => food.id)
-  public food: Food;
+  food: Food;
 }

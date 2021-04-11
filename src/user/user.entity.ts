@@ -51,5 +51,5 @@ export class User {
   role: Role;
 
   @OneToMany(() => Order, (order: Order) => order.id)
-  public order: Order[];
+  order: Order[];
 }

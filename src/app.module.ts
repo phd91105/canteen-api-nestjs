@@ -1,3 +1,6 @@
+import { MomoModule } from './payment/momo/momo.module';
+import { MomoService } from './payment/momo/momo.service';
+import { MomoController } from './payment/momo/momo.controller';
 import { OrderDetailModule } from './orderdetail/orderdetail.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,6 +14,7 @@ import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
+    MomoModule,
     OrderDetailModule,
     TypeOrmModule.forRoot(),
     UserModule,
