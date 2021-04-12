@@ -8,7 +8,7 @@ import { VnpayService } from './vnpay.service';
 export class VnpayController {
   constructor(private readonly vnpayService: VnpayService) {}
 
-  @Get('payment')
+  @Get('checkout')
   async payment(@Res() response: Response, @Query() query: any) {
     const checkoutUrl = await this.vnpayService.payment(
       query.amount,

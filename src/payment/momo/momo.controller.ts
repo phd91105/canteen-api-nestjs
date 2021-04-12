@@ -7,7 +7,7 @@ import { MomoService } from './momo.service';
 export class MomoController {
   constructor(private readonly momoService: MomoService) {}
 
-  @Get('payment')
+  @Get('checkout')
   payment(@Query() query: any) {
     return this.momoService.payment(query.amount, query.msg);
   }
