@@ -20,30 +20,12 @@ export class MomoService {
     const orderInfo = msg || 'pay with MoMo';
     const returnUrl = 'http://localhost:8080/momo/payment';
     const notifyurl = 'https://momo.vn/';
-    const amount = _amount || '25000';
+    const amount = _amount.toString() || 25000;
     const orderId = uuidv4();
     const requestId = uuidv4();
     const requestType = 'captureMoMoWallet';
-    const extraData = 'merchantName=CanteenHutech';
-    const rawSignature =
-      'partnerCode=' +
-      partnerCode +
-      '&accessKey=' +
-      accessKey +
-      '&requestId=' +
-      requestId +
-      '&amount=' +
-      amount +
-      '&orderId=' +
-      orderId +
-      '&orderInfo=' +
-      orderInfo +
-      '&returnUrl=' +
-      returnUrl +
-      '&notifyUrl=' +
-      notifyurl +
-      '&extraData=' +
-      extraData;
+    const extraData = 'merchantName=cantin-hutech';
+    const rawSignature = `partnerCode=${partnerCode}&accessKey=${accessKey}&requestId=${requestId}&amount=${amount}&orderId=${orderId}&orderInfo=${orderInfo}&returnUrl=${returnUrl}&notifyUrl=${notifyurl}&extraData=${extraData}`;
 
     const signature = crypto
       .createHmac('sha256', serectkey)
