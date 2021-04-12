@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
-import { OrderDetail } from 'src/orderdetail/orderdetail.entity';
-import { User } from 'src/user/user.entity';
+import { OrderDetail } from '../orderdetail/orderdetail.entity';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Order {

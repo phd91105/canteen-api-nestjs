@@ -12,10 +12,11 @@ import {
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
-import LoginModel from 'src/dto/login.dto';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import LoginModel from './dto/login.dto';
 
 @Controller()
+@ApiTags('User')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

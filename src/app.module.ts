@@ -3,6 +3,7 @@ import { MomoModule } from './payment/momo/momo.module';
 import { OrderDetailModule } from './orderdetail/orderdetail.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -22,6 +23,7 @@ import { OrderModule } from './order/order.module';
     RoleModule,
     CategoryModule,
     OrderModule,
+    ConfigModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
