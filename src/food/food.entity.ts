@@ -30,7 +30,7 @@ export class Food {
   @IsString()
   @ApiProperty({ type: String })
   @Column()
-  details: string;
+  detail: string;
 
   @IsNotEmpty()
   @IsNumberString()

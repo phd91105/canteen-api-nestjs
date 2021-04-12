@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { MomoService } from './momo.service';
 
 @Controller('momo')
@@ -6,7 +6,7 @@ export class MomoController {
   constructor(private readonly momoService: MomoService) {}
 
   @Post('payment')
-  payment(@Query('amount') _amount?: number, @Query('msg') msg?: string) {
+  payment(@Body('amount') _amount?: number, @Body('msg') msg?: string) {
     return this.momoService.payment(_amount, msg);
   }
 
