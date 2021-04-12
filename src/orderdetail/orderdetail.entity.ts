@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { Order } from 'src/order/order.entity';
-import { Food } from 'src/food/food.entity';
+import { Order } from '../order/order.entity';
+import { Food } from '../food/food.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

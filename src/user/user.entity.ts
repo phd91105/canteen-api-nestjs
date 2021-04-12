@@ -9,7 +9,7 @@ import {
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../role/role.entity';
-import { Order } from 'src/order/order.entity';
+import { Order } from '../order/order.entity';
 
 @Entity()
 export class User {

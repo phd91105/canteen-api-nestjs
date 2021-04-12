@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
-import { Food } from 'src/food/food.entity';
+import { Food } from '../food/food.entity';
 
 @Entity()
 export class Category {

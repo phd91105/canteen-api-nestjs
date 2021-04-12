@@ -2,7 +2,7 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getServerStatus(): any {
+  getServerStatus(): { [key: string]: number | string } {
     return {
       status: HttpStatus.OK,
       message: 'Server is working',

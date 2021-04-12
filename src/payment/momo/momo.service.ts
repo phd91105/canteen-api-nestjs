@@ -3,13 +3,11 @@ import axios, { AxiosResponse } from 'axios';
 import * as crypto from 'crypto';
 import { Observable } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
-import * as dotenv from 'dotenv';
 
-dotenv.config();
 @Injectable()
 export class MomoService {
   async payment(
-    _amount?: number,
+    _amount: number,
     msg?: string,
   ): Promise<Observable<AxiosResponse<any>>> {
     const endpoint =
@@ -18,9 +16,9 @@ export class MomoService {
     const accessKey = 'klm05TvNBzhg7h7j';
     const serectkey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
     const orderInfo = msg || 'pay with MoMo';
-    const returnUrl = 'http://localhost:8080/momo/payment';
+    const returnUrl = 'http://localhost:8080/momo/return';
     const notifyurl = 'https://momo.vn/';
-    const amount = _amount.toString() || 25000;
+    const amount = _amount.toString();
     const orderId = uuidv4();
     const requestId = uuidv4();
     const requestType = 'captureMoMoWallet';
@@ -50,7 +48,7 @@ export class MomoService {
   }
 
   async returnUrl(
-    _amount: string,
+    amount: string,
     localMessage: string,
     orderId: string,
     orderType: string,
@@ -64,7 +62,7 @@ export class MomoService {
       transId: transId,
       requestId: requestId,
       orderId: orderId,
-      amount: _amount,
+      amount: parseInt(amount),
       localMessage: localMessage,
       responseTime: responseTime,
       orderType: orderType,

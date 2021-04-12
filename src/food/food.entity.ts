@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
-import { Category } from 'src/category/category.entity';
-import { OrderDetail } from 'src/orderdetail/orderdetail.entity';
+import { Category } from '../category/category.entity';
+import { OrderDetail } from '../orderdetail/orderdetail.entity';
 import {
   Column,
   Entity,
