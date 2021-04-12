@@ -1,4 +1,5 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { ApiTags } from '@nestjs/swagger';
 import { MomoService } from './momo.service';
 
@@ -8,8 +9,9 @@ export class MomoController {
   constructor(private readonly momoService: MomoService) {}
 
   @Get('checkout')
-  payment(@Query() query: any) {
-    return this.momoService.payment(query.amount, query.msg);
+  async payment(@Res() response: Response, @Query() query: any) {
+    const checkoutUrl = await this.momoService.payment(query.amount, query.msg);
+    response.redirect(checkoutUrl['payUrl']);
   }
 
   @Get('return')
