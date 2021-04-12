@@ -10,10 +10,11 @@ import {
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { Category } from './category.entity';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller()
+@ApiTags('Food')
 export class CategoryController {
   constructor(private readonly catService: CategoryService) {}
 

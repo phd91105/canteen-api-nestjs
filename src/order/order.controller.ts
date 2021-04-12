@@ -10,10 +10,11 @@ import {
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Order } from './order.entity';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller()
+@ApiTags('Order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 

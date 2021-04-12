@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
-import { Category } from 'src/category/category.entity';
-import { OrderDetail } from 'src/orderdetail/orderdetail.entity';
+import { Category } from '../category/category.entity';
+import { OrderDetail } from '../orderdetail/orderdetail.entity';
 import {
   Column,
   Entity,
@@ -12,7 +12,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Product {
+export class Food {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -30,7 +30,7 @@ export class Product {
   @IsString()
   @ApiProperty({ type: String })
   @Column()
-  details: string;
+  detail: string;
 
   @IsNotEmpty()
   @IsNumberString()
@@ -57,5 +57,5 @@ export class Product {
   category: Category;
 
   @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail.id)
-  public orderDetail: OrderDetail[];
+  orderDetail: OrderDetail[];
 }

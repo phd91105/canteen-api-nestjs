@@ -21,13 +21,13 @@ export class UserService {
     return await this.userRepo.find();
   }
 
-  async findOne(id: number): Promise<any> {
+  async findOne(id: number): Promise<User> {
     if (await this.userRepo.findOne(id)) {
       return this.userRepo.findOne(id);
     } else throw new NotFoundException();
   }
 
-  async register(user: User): Promise<any> {
+  async register(user: User): Promise<User> {
     const username: string = user.username;
     const usr: User = await this.userRepo.findOne({ username });
     if (!usr) {
@@ -47,9 +47,12 @@ export class UserService {
     return await this.userRepo.delete(id);
   }
 
-  async login(username: string, password: string): Promise<any> {
-    const regex: any = /\S+@\S+\.\S+/;
-    const isEmail: boolean = regex.test(username);
+  async login(
+    username: string,
+    password: string,
+  ): Promise<{ [key: string]: string }> {
+    const emailRegex = /\S+@\S+\.\S+/;
+    const isEmail: boolean = emailRegex.test(username);
     const user: User = !isEmail
       ? await this.userRepo.findOne({ username: username })
       : await this.userRepo.findOne({ email: username });

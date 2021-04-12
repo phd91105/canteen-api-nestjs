@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
-import { Product } from 'src/product/product.entity';
+import { Food } from '../food/food.entity';
 
 @Entity()
 export class Category {
@@ -17,6 +17,6 @@ export class Category {
   @ApiProperty({ type: String })
   desc: string;
 
-  @OneToMany(() => Product, (product: Product) => product.id)
-  product: Product[];
+  @OneToMany(() => Food, (food: Food) => food.id)
+  food: Food[];
 }

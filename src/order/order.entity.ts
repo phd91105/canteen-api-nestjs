@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
-import { OrderDetail } from 'src/orderdetail/orderdetail.entity';
-import { User } from 'src/user/user.entity';
+import { OrderDetail } from '../orderdetail/orderdetail.entity';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Order {
@@ -29,8 +29,8 @@ export class Order {
   status: string;
 
   @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail.id)
-  public orderDetail: OrderDetail[];
+  orderDetail: OrderDetail[];
 
   @ManyToOne(() => User, (user: User) => user.id)
-  public user: User;
+  user: User;
 }
