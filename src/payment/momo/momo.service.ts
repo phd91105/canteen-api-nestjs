@@ -12,11 +12,11 @@ export class MomoService {
   ): Promise<Observable<AxiosResponse<any>>> {
     const endpoint =
       'https://test-payment.momo.vn/gw_payment/transactionProcessor';
-    const partnerCode = 'MOMOBKUN20180529';
-    const accessKey = 'klm05TvNBzhg7h7j';
-    const serectkey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+    const partnerCode = process.env.PARTNER_CODE;
+    const accessKey = process.env.ACCESS_KEY;
+    const serectkey = process.env.MOMO_SECRET;
     const orderInfo = msg || 'pay with MoMo';
-    const returnUrl = 'http://localhost:8080/momo/return';
+    const returnUrl = process.env.MOMO_RETURN_URL;
     const notifyurl = 'https://momo.vn/';
     const amount = _amount.toString();
     const orderId = uuidv4();
