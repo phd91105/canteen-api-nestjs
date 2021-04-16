@@ -11,19 +11,21 @@ import { FoodModule } from './food/food.module';
 import { RoleModule } from './role/role.module';
 import { CategoryModule } from './category/category.module';
 import { OrderModule } from './order/order.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(),
     VnpayModule,
     MomoModule,
     OrderDetailModule,
-    TypeOrmModule.forRoot(),
     UserModule,
     FoodModule,
     RoleModule,
     CategoryModule,
     OrderModule,
-    ConfigModule.forRoot(),
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],
