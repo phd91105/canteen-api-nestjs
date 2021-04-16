@@ -4,6 +4,7 @@
     "project": "tsconfig.json",
     "sourceType": "module"
   },
+  "eslint linebreak-style": ["error", "windows"],
   "plugins": ["@typescript-eslint/eslint-plugin"],
   "extends": [
     "plugin:@typescript-eslint/recommended",
