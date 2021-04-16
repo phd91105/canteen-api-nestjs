@@ -4,7 +4,6 @@
     "project": "tsconfig.json",
     "sourceType": "module"
   },
-  "eslint linebreak-style": ["error", "windows"],
   "plugins": ["@typescript-eslint/eslint-plugin"],
   "extends": [
     "plugin:@typescript-eslint/recommended",
@@ -17,6 +16,9 @@
   },
   "ignorePatterns": [".eslintrc"],
   "rules": {
+    "linebreak-style": 0,
+    "global-require": 0,
+    "eslint linebreak-style": [0, "error", "windows"],
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
