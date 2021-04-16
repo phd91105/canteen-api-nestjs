@@ -12,8 +12,8 @@ export class VnpayService {
   ): Promise<any> {
     const vnpay = new VNPay({
       paymentGateway: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
-      merchant: 'MMRI1ALQ',
-      secureSecret: 'MQJWPLHEJQWUZOJMXXRYJDGJQTXXGEWW',
+      merchant: process.env.MERCHANT,
+      secureSecret: process.env.SECURE_SECRET,
     });
     const date = new Date();
     const checkoutPayload: any = {
@@ -25,7 +25,7 @@ export class VnpayService {
       orderId: `nest-${dateFormat(date, 'HHmmss')}`,
       orderInfo: orderInfo,
       orderType: orderType,
-      returnUrl: 'http://localhost:8080/vnpay/return',
+      returnUrl: process.env.VNP_RETURN_URL,
       transactionId: `nest-${dateFormat('HHmmss')}`,
       customerId: customerId,
       bankCode: 'NCB',

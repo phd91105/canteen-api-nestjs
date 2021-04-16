@@ -1,19 +1,25 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
-  Param,
   Post,
   Put,
+  Delete,
+  Param,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import LoginModel from './dto/login.dto';
+import { ApiBearerAuth, ApiBody, ApiProperty, ApiTags } from '@nestjs/swagger';
+
+export class LoginModel {
+  @ApiProperty({ type: String })
+  readonly username: string;
+  @ApiProperty({ type: String })
+  readonly password: string;
+}
 
 @Controller()
 @ApiTags('User')
