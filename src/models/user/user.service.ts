@@ -65,7 +65,6 @@ export class UserService {
     const jwt: string = this.jwtService.sign({
       uid: user.id,
       uname: user.username,
-      role: user.role.id,
     });
     return { message: 'Login Successful', token: jwt };
   }

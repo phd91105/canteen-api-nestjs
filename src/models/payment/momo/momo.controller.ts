@@ -10,22 +10,34 @@ export class MomoController {
 
   @Get('checkout')
   async payment(@Res() response: Response, @Query() query: any) {
-    const checkoutUrl = await this.momoService.payment(query.amount, query.msg);
+    const { amount, msg } = query;
+    const checkoutUrl = await this.momoService.payment(amount, msg); //
     response.redirect(checkoutUrl['payUrl']);
   }
 
   @Get('return')
   returnUrl(@Query() query: any) {
+    const {
+      amount,
+      localMessage,
+      orderId,
+      orderType,
+      payType,
+      extraData,
+      requestId,
+      transId,
+      responseTime,
+    } = query;
     return this.momoService.returnUrl(
-      query.amount,
-      query.localMessage,
-      query.orderId,
-      query.orderType,
-      query.payType,
-      query.extraData,
-      query.requestId,
-      query.transId,
-      query.responseTime,
+      amount,
+      localMessage,
+      orderId,
+      orderType,
+      payType,
+      extraData,
+      requestId,
+      transId,
+      responseTime,
     );
   }
 }
