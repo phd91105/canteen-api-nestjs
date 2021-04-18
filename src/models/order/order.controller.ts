@@ -11,7 +11,7 @@ import {
 import { OrderService } from './order.service';
 import { Order } from './entities/order.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 
 @Controller()
 @ApiTags('Order')
