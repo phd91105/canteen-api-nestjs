@@ -41,6 +41,7 @@ export class User {
   @Column()
   password: string;
 
+  @ApiProperty({ type: Number })
   @ManyToOne(() => Role, () => Role, {
     eager: true,
     cascade: true,

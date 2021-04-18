@@ -8,6 +8,7 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { LoginModel } from './user.controller';
 
 @Injectable()
 export class UserService {
@@ -47,24 +48,23 @@ export class UserService {
     return await this.userRepo.delete(id);
   }
 
-  async login(
-    username: string,
-    password: string,
-  ): Promise<Record<string, string>> {
+  async login(user: LoginModel): Promise<Record<string, string>> {
     const emailRegex = /\S+@\S+\.\S+/;
+    const { username, password } = user;
     const isEmail: boolean = emailRegex.test(username);
-    const user: User = !isEmail
+    const userInfo: User = !isEmail
       ? await this.userRepo.findOne({ username: username })
       : await this.userRepo.findOne({ email: username });
     if (!user) {
       throw new BadRequestException('Invalid Username');
     }
-    if (!(await bcrypt.compare(password, user.password))) {
+    if (!(await bcrypt.compare(password, userInfo.password))) {
       throw new BadRequestException('Invalid Password');
     }
     const jwt: string = this.jwtService.sign({
-      uid: user.id,
-      uname: user.username,
+      uid: userInfo.id,
+      uname: userInfo.username,
+      role: userInfo.role.id,
     });
     return { message: 'Login Successful', token: jwt };
   }

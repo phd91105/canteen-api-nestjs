@@ -12,11 +12,15 @@ import {
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { ApiBearerAuth, ApiBody, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
+import { IsNotEmpty } from 'class-validator';
 
 export class LoginModel {
+  @IsNotEmpty()
   @ApiProperty({ type: String })
   readonly username: string;
+
+  @IsNotEmpty()
   @ApiProperty({ type: String })
   readonly password: string;
 }
@@ -28,11 +32,8 @@ export class UserController {
 
   @Post('login')
   @ApiBody({ type: LoginModel })
-  login(
-    @Body('username') username: string,
-    @Body('password') password: string,
-  ) {
-    return this.userService.login(username, password);
+  login(@Body(new ValidationPipe()) user: LoginModel) {
+    return this.userService.login(user);
   }
 
   @Post('register')

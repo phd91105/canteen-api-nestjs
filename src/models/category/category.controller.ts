@@ -11,7 +11,7 @@ import {
 import { CategoryService } from './category.service';
 import { Category } from './entities/category.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 
 @Controller()
 @ApiTags('Food')
