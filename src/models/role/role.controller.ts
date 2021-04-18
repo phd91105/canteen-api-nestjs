@@ -11,7 +11,7 @@ import {
 import { RoleService } from './role.service';
 import { Role } from './entities/role.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/authentication/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @Controller()
 @ApiTags('User')

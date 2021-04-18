@@ -50,7 +50,7 @@ export class UserService {
   async login(
     username: string,
     password: string,
-  ): Promise<{ [key: string]: string }> {
+  ): Promise<Record<string, string>> {
     const emailRegex = /\S+@\S+\.\S+/;
     const isEmail: boolean = emailRegex.test(username);
     const user: User = !isEmail
