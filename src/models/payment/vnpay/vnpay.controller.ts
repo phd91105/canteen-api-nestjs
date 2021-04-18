@@ -9,25 +9,18 @@ export class VnpayController {
   constructor(private readonly vnpayService: VnpayService) {}
 
   @Get('checkout')
-  async payment(@Res() response: Response, @Query() query: any) {
-    const checkoutUrl = await this.vnpayService.payment(
-      query.amount,
-      query.orderInfo,
-      query.orderType,
-      query.customerId,
-    );
+  async payment(
+    @Res() response: Response,
+    @Query() query: Record<string, string>,
+  ) {
+    const { amount, orderInfo } = query;
+    const checkoutUrl = await this.vnpayService.payment(amount, orderInfo);
     response.redirect(checkoutUrl);
   }
 
   @Get('return')
-  returnUrl(@Query() query: any) {
-    return this.vnpayService.returnUrl(
-      query.vnp_TransactionNo,
-      query.vnp_BankTranNo,
-      query.vnp_Amount,
-      query.vnp_BankCode,
-      query.vnp_OrderInfo,
-      query.vnp_PayDate,
-    );
+  returnUrl(@Query() query: Record<string, string | number>) {
+    query['vnp_Amount'] = +query['vnp_Amount'] / 100;
+    return query;
   }
 }

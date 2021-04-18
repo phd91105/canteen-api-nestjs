@@ -12,7 +12,7 @@ import {
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { ApiBearerAuth, ApiBody, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/authentication/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 export class LoginModel {
   @ApiProperty({ type: String })

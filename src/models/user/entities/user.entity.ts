@@ -2,8 +2,8 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
@@ -41,9 +41,7 @@ export class User {
   @Column()
   password: string;
 
-  @IsNotEmpty()
-  @ApiProperty({ type: Number })
-  @OneToOne(() => Role, {
+  @ManyToOne(() => Role, () => Role, {
     eager: true,
     cascade: true,
   })

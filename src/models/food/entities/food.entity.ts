@@ -10,6 +10,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Cart } from '../../../models/cart/entities/cart.entity';
 
 @Entity()
 export class Food {
@@ -38,14 +39,8 @@ export class Food {
   @Column()
   price: number;
 
-  @IsNumberString()
-  @ApiProperty({ type: Number })
   @Column()
-  stock: number;
-
-  @IsNumberString()
-  @Column()
-  viewCount: number;
+  image: string;
 
   @IsNotEmpty()
   @ApiProperty({ type: Number })
@@ -58,4 +53,7 @@ export class Food {
 
   @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail.id)
   orderDetail: OrderDetail[];
+
+  @OneToMany(() => Cart, (cart: Cart) => cart.id)
+  cart: Cart[];
 }

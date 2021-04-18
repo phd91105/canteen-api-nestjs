@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getServerStatus(): { [key: string]: number | string } {
+  getServerStatus(): Record<string, string | number> {
     return this.appService.getServerStatus();
   }
 }
