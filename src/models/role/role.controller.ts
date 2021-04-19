@@ -13,9 +13,9 @@ import { RoleEntity } from './entities/role.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/authentication/jwt-auth.guard';
 import { Roles } from '../../auth/authorization/role.decorator';
-import { Role } from '../../enums/role.enum';
-import { RolesGuard } from '../../auth/authorization/role.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { RolesGuard } from 'src/auth/authorization/role.guard';
+import { Role } from 'src/enums/role.enum';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)

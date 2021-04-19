@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { OrderEntity } from '../../order/entities/order.entity';
 import { FoodEntity } from '../../food/entities/food.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
@@ -17,12 +17,14 @@ export class OrderDetailEntity {
 
   @IsString()
   @IsNotEmpty()
+  @IsNumber()
   @ApiProperty({ type: Number })
   @Column()
   price: number;
 
   @IsString()
   @IsNotEmpty()
+  @IsNumber()
   @ApiProperty({ type: Number })
   @Column()
   quantity: number;

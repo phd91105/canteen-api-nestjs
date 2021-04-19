@@ -5,14 +5,15 @@ import { JwtStrategy } from './jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from 'src/models/user/entities/user.entity';
+import { UserEntity } from '../../models/user/entities/user.entity';
+import AppConfiguration from 'src/config/app.config';
 
 @Module({
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'secretKey',
-      signOptions: { expiresIn: '5h' },
+      secret: AppConfiguration.jwt.secret,
+      signOptions: { expiresIn: AppConfiguration.jwt.expiration },
     }),
     TypeOrmModule.forFeature([UserEntity]),
   ],

@@ -13,13 +13,18 @@ import { CategoryEntity } from './entities/category.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/authentication/jwt-auth.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { RolesGuard } from 'src/auth/authorization/role.guard';
+import { Role } from 'src/enums/role.enum';
+import { Roles } from 'src/auth/authorization/role.decorator';
 
 @Controller()
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Food')
 export class CategoryController {
   constructor(private readonly catService: CategoryService) {}
 
   @ApiBearerAuth()
+  @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('categories')
   findAll(): Promise<CategoryEntity[]> {
@@ -27,6 +32,7 @@ export class CategoryController {
   }
 
   @ApiBearerAuth()
+  @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('category/:id')
   get(@Param('id') id: number): Promise<CategoryEntity> {
@@ -34,6 +40,7 @@ export class CategoryController {
   }
 
   @ApiBearerAuth()
+  @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: CategoryEntity })
   @Post('category')
@@ -42,6 +49,7 @@ export class CategoryController {
   }
 
   @ApiBearerAuth()
+  @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Put('category/:id')
   update(
@@ -52,6 +60,7 @@ export class CategoryController {
   }
 
   @ApiBearerAuth()
+  @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Delete('category/:id')
   deleteUser(@Param('id') id: number): Promise<DeleteResult> {
