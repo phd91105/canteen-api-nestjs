@@ -12,14 +12,16 @@ export class MomoController {
   async payment(
     @Res() response: Response,
     @Query() query: Record<string, string>,
-  ) {
+  ): Promise<void> {
     const { amount, orderInfo } = query;
     const checkoutUrl = await this.momoService.payment(amount, orderInfo);
     response.redirect(checkoutUrl['payUrl']);
   }
 
   @Get('return')
-  returnUrl(@Query() query: Record<string, string | number>) {
+  returnUrl(
+    @Query() query: Record<string, string | number>,
+  ): Record<string, string | number> {
     query['amount'] = +query['amount'];
     return query;
   }

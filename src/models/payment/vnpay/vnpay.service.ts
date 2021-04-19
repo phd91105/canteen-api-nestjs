@@ -4,15 +4,16 @@ import * as dateFormat from 'dateformat';
 
 @Injectable()
 export class VnpayService {
-  async payment(amount: string, orderInfo?: string): Promise<any> {
+  async payment(amount: string, orderInfo?: string): Promise<string> {
     const vnpay = new VNPay({
       paymentGateway: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
       merchant: process.env.MERCHANT,
       secureSecret: process.env.SECURE_SECRET,
     });
     const date = new Date();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const checkoutPayload: any = {
-      createdDate: dateFormat(date, 'yyyymmddHHmmss'),
+      createdDate: `${dateFormat(date, 'yyyymmddHHmmss')}`,
       amount: +amount,
       clientIp: '127.0.0.1',
       locale: 'vn',
@@ -25,6 +26,6 @@ export class VnpayService {
       customerId: 'customerId',
       bankCode: 'NCB',
     };
-    return await vnpay.buildCheckoutUrl(checkoutPayload);
+    return (await vnpay.buildCheckoutUrl(checkoutPayload)).toString();
   }
 }
