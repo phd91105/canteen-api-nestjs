@@ -1,7 +1,9 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
@@ -12,10 +14,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: Record<string, string | number>) {
+  async validate(
+    payload: Record<string, string | number>,
+  ): Promise<Record<string, string | number>> {
+    const { role, uname, uid } = payload;
     return {
-      uid: payload.sub,
-      uname: payload.username,
+      uid: uid,
+      uname: uname,
+      role: role,
     };
   }
 }

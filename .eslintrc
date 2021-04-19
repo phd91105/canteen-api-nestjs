@@ -18,11 +18,11 @@
   "rules": {
     "linebreak-style": 0,
     "global-require": 0,
-    "eslint linebreak-style": [0, "error", "windows"],
-    "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "no-console": "error"
+    "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/explicit-function-return-type": 2,
+    "@typescript-eslint/explicit-module-boundary-types": 2,
+    "@typescript-eslint/no-explicit-any": 2,
+    "@typescript-eslint/no-unused-vars": 2,
+    "no-console": 2
   }
 }

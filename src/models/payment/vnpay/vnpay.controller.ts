@@ -12,14 +12,19 @@ export class VnpayController {
   async payment(
     @Res() response: Response,
     @Query() query: Record<string, string>,
-  ) {
+  ): Promise<void> {
     const { amount, orderInfo } = query;
-    const checkoutUrl = await this.vnpayService.payment(amount, orderInfo);
+    const checkoutUrl: string = await this.vnpayService.payment(
+      amount,
+      orderInfo,
+    );
     response.redirect(checkoutUrl);
   }
 
   @Get('return')
-  returnUrl(@Query() query: Record<string, string | number>) {
+  returnUrl(
+    @Query() query: Record<string, string | number>,
+  ): Record<string, string | number> {
     query['vnp_Amount'] = +query['vnp_Amount'] / 100;
     return query;
   }

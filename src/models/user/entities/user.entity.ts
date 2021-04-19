@@ -8,11 +8,11 @@ import {
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Role } from '../../role/entities/role.entity';
-import { Order } from '../../order/entities/order.entity';
+import { RoleEntity } from '../../role/entities/role.entity';
+import { OrderEntity } from '../../order/entities/order.entity';
 
 @Entity()
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -41,13 +41,14 @@ export class User {
   @Column()
   password: string;
 
-  @ManyToOne(() => Role, () => Role, {
+  @ApiProperty({ type: Number })
+  @ManyToOne(() => RoleEntity, () => RoleEntity, {
     eager: true,
     cascade: true,
   })
   @JoinColumn()
-  role: Role;
+  role: RoleEntity;
 
-  @OneToMany(() => Order, (order: Order) => order.id)
-  order: Order[];
+  @OneToMany(() => OrderEntity, (order: OrderEntity) => order.id)
+  order: OrderEntity[];
 }

@@ -2,70 +2,57 @@ import {
   Body,
   Controller,
   Get,
-  Post,
   Put,
   Delete,
   Param,
   UseGuards,
-  ValidationPipe,
 } from '@nestjs/common';
-import { User } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 import { UserService } from './user.service';
-import { ApiBearerAuth, ApiBody, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-
-export class LoginModel {
-  @ApiProperty({ type: String })
-  readonly username: string;
-  @ApiProperty({ type: String })
-  readonly password: string;
-}
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/authentication/jwt-auth.guard';
+import { Role } from '../../enums/role.enum';
+import { Roles } from '../../auth/authorization/role.decorator';
+import { RolesGuard } from '../../auth/authorization/role.guard';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Controller()
 @ApiTags('User')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('login')
-  @ApiBody({ type: LoginModel })
-  login(
-    @Body('username') username: string,
-    @Body('password') password: string,
-  ) {
-    return this.userService.login(username, password);
-  }
-
-  @Post('register')
-  @ApiBody({ type: User })
-  register(@Body(new ValidationPipe()) user: User) {
-    return this.userService.register(user);
-  }
-
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('users')
-  findAll(): Promise<User[]> {
+  findAll(): Promise<UserEntity[]> {
     return this.userService.findAll();
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin, Role.Staff)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('user/:id')
-  get(@Param('id') id: number) {
+  get(@Param('id') id: number): Promise<UserEntity> {
     return this.userService.findOne(id);
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin, Role.Staff)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Put('user/:id')
-  update(@Param('id') id: number, @Body() user: User) {
+  update(
+    @Param('id') id: number,
+    @Body() user: UserEntity,
+  ): Promise<UpdateResult> {
     return this.userService.update(id, user);
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete('user/:id')
-  deleteUser(@Param('id') id: number) {
+  deleteUser(@Param('id') id: number): Promise<DeleteResult> {
     return this.userService.delete(id);
   }
 }

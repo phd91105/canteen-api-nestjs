@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { Order } from '../../order/entities/order.entity';
-import { Food } from '../../food/entities/food.entity';
+import { OrderEntity } from '../../order/entities/order.entity';
+import { FoodEntity } from '../../food/entities/food.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class OrderDetail {
+export class OrderDetailEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -27,9 +27,9 @@ export class OrderDetail {
   @Column()
   quantity: number;
 
-  @ManyToOne(() => Order, (order: Order) => order.id)
-  order: Order;
+  @ManyToOne(() => OrderEntity, (order: OrderEntity) => order.id)
+  order: OrderEntity;
 
-  @ManyToOne(() => Food, (food: Food) => food.id)
-  food: Food;
+  @ManyToOne(() => FoodEntity, (food: FoodEntity) => food.id)
+  food: FoodEntity;
 }

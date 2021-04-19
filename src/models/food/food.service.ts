@@ -1,29 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { Food } from './entities/food.entity';
+import { FoodEntity } from './entities/food.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UpdateResult, DeleteResult } from 'typeorm';
+import { UpdateResult, DeleteResult, Repository } from 'typeorm';
 
 @Injectable()
 export class FoodService {
   constructor(
-    @InjectRepository(Food)
-    private readonly foodRepo: Repository<Food>,
+    @InjectRepository(FoodEntity)
+    private readonly foodRepo: Repository<FoodEntity>,
   ) {}
 
-  async findAll(): Promise<Food[]> {
+  async findAll(): Promise<FoodEntity[]> {
     return await this.foodRepo.find();
   }
 
-  async findOne(id: number): Promise<Food> {
+  async findOne(id: number): Promise<FoodEntity> {
     return await this.foodRepo.findOne(id);
   }
 
-  async create(food: Food): Promise<Food> {
+  async create(food: FoodEntity): Promise<FoodEntity> {
     return await this.foodRepo.save(food);
   }
 
-  async update(id: number, food: Food): Promise<UpdateResult> {
+  async update(id: number, food: FoodEntity): Promise<UpdateResult> {
     return await this.foodRepo.update(id, food);
   }
 

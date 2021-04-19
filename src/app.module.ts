@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/authentication/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -15,6 +16,7 @@ import { UserModule } from './models/user/user.module';
 
 @Module({
   imports: [
+    AuthModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(),
     VnpayModule,

@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../../user/entities/user.entity';
+import { UserEntity } from '../../user/entities/user.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 
 @Entity()
-export class Role {
+export class RoleEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,6 +19,6 @@ export class Role {
 
   @IsNotEmpty()
   @ApiProperty({ type: Number })
-  @OneToMany(() => User, (user: User) => user.id)
-  user: User[];
+  @OneToMany(() => UserEntity, (user: UserEntity) => user.id)
+  user: UserEntity[];
 }

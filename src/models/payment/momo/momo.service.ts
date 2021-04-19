@@ -9,7 +9,7 @@ export class MomoService {
   async payment(
     _amount: string,
     _orderInfo?: string,
-  ): Promise<Observable<AxiosResponse<any>>> {
+  ): Promise<Observable<AxiosResponse<unknown>>> {
     const endpoint =
       'https://test-payment.momo.vn/gw_payment/transactionProcessor';
     const partnerCode = process.env.PARTNER_CODE;
