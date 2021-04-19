@@ -7,7 +7,6 @@ import {
   Body,
   Param,
   UseGuards,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CategoryEntity } from './entities/category.entity';
@@ -45,9 +44,7 @@ export class CategoryController {
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: CategoryEntity })
   @Post('category')
-  create(
-    @Body(new ValidationPipe()) category: CategoryEntity,
-  ): Promise<CategoryEntity> {
+  create(@Body() category: CategoryEntity): Promise<CategoryEntity> {
     return this.catService.create(category);
   }
 
@@ -57,7 +54,7 @@ export class CategoryController {
   @Put('category/:id')
   update(
     @Param('id') id: number,
-    @Body(new ValidationPipe()) category: CategoryEntity,
+    @Body() category: CategoryEntity,
   ): Promise<UpdateResult> {
     return this.catService.update(id, category);
   }

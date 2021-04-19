@@ -2,6 +2,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
+import AppConfiguration from 'src/config/app.config';
 
 dotenv.config();
 @Injectable()
@@ -10,13 +11,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET || 'secretKey',
+      secretOrKey: AppConfiguration.jwt.secret,
     });
   }
 
-  async validate(
+  validate(
     payload: Record<string, string | number>,
-  ): Promise<Record<string, string | number>> {
+  ): Record<string, string | number> {
     const { role, uname, uid } = payload;
     return {
       uid: uid,

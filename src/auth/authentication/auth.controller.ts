@@ -1,4 +1,4 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBody, ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import { UserEntity } from '../../models/user/entities/user.entity';
@@ -19,15 +19,13 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
   @ApiBody({ type: LoginModel })
-  login(
-    @Body(new ValidationPipe()) user: LoginModel,
-  ): Promise<Record<string, string>> {
+  login(@Body() user: LoginModel): Promise<Record<string, string>> {
     return this.authService.login(user);
   }
 
   @Post('register')
   @ApiBody({ type: UserEntity })
-  register(@Body(new ValidationPipe()) user: UserEntity): Promise<UserEntity> {
+  register(@Body() user: UserEntity): Promise<UserEntity> {
     return this.authService.register(user);
   }
 }

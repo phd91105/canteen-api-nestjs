@@ -1,9 +1,9 @@
 import { MomoService } from './momo.service';
 import { MomoController } from './momo.controller';
-import { HttpModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 
 @Module({
-  imports: [HttpModule],
+  imports: [],
   controllers: [MomoController],
   providers: [MomoService],
 })

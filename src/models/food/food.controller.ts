@@ -40,7 +40,7 @@ export class FoodController {
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Post('food')
-  create(@Body(new ValidationPipe()) food: FoodEntity): Promise<FoodEntity> {
+  create(@Body() food: FoodEntity): Promise<FoodEntity> {
     return this.foodService.create(food);
   }
 
@@ -50,7 +50,7 @@ export class FoodController {
   @Put('food/:id')
   update(
     @Param('id') id: number,
-    @Body(new ValidationPipe()) food: FoodEntity,
+    @Body() food: FoodEntity,
   ): Promise<UpdateResult> {
     return this.foodService.update(id, food);
   }

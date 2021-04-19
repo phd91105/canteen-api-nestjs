@@ -2,14 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { VNPay } from 'vn-payments';
 import * as dateFormat from 'dateformat';
 import { IPaymentParams } from 'src/interfaces/payment';
+import AppConfiguration from 'src/config/app.config';
 
 @Injectable()
 export class VnpayService {
   async payment(payParam: IPaymentParams): Promise<string> {
     const vnpay = new VNPay({
       paymentGateway: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
-      merchant: process.env.MERCHANT,
-      secureSecret: process.env.SECURE_SECRET,
+      merchant: AppConfiguration.payment.vnpay.merchant,
+      secureSecret: AppConfiguration.payment.vnpay.secret,
     });
     const date = new Date();
     const checkoutPayload: any = {
@@ -21,7 +22,7 @@ export class VnpayService {
       orderId: `nest-${dateFormat(date, 'HHmmss')}`,
       orderInfo: payParam.orderInfo || 'pay with VNPay',
       orderType: 'food',
-      returnUrl: process.env.VNP_RETURN_URL,
+      returnUrl: AppConfiguration.payment.vnpay.returnUrl,
       transactionId: `nest-${dateFormat('HHmmss')}`,
       customerId: 'customerId',
       bankCode: 'NCB',
