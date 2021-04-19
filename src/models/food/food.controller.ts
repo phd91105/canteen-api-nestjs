@@ -7,7 +7,6 @@ import {
   Body,
   Param,
   UseGuards,
-  ValidationPipe,
 } from '@nestjs/common';
 import { FoodService } from './food.service';
 import { FoodEntity } from './entities/food.entity';
