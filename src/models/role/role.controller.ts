@@ -7,6 +7,7 @@ import {
   Body,
   Param,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { RoleEntity } from './entities/role.entity';
@@ -41,7 +42,7 @@ export class RoleController {
   @Roles(Role.Admin)
   @ApiBody({ type: RoleEntity })
   @Post('role')
-  create(@Body() role: RoleEntity): Promise<RoleEntity> {
+  create(@Body(new ValidationPipe()) role: RoleEntity): Promise<RoleEntity> {
     return this.roleService.create(role);
   }
 
@@ -50,7 +51,7 @@ export class RoleController {
   @Put('role/:id')
   update(
     @Param('id') id: number,
-    @Body() role: RoleEntity,
+    @Body(new ValidationPipe()) role: RoleEntity,
   ): Promise<UpdateResult> {
     return this.roleService.update(id, role);
   }

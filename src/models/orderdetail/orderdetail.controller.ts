@@ -7,6 +7,7 @@ import {
   Body,
   Param,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { OrderDetailService } from './orderdetail.service';
 import { OrderDetailEntity } from './entities/orderdetail.entity';
@@ -44,7 +45,9 @@ export class OrderDetailController {
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: OrderDetailEntity })
   @Post('orderdetail')
-  create(@Body() orderdetail: OrderDetailEntity): Promise<OrderDetailEntity> {
+  create(
+    @Body(new ValidationPipe()) orderdetail: OrderDetailEntity,
+  ): Promise<OrderDetailEntity> {
     return this.orderdetailService.create(orderdetail);
   }
 
@@ -54,7 +57,7 @@ export class OrderDetailController {
   @Put('orderdetail/:id')
   update(
     @Param('id') id: number,
-    @Body() orderdetail: OrderDetailEntity,
+    @Body(new ValidationPipe()) orderdetail: OrderDetailEntity,
   ): Promise<UpdateResult> {
     return this.orderdetailService.update(id, orderdetail);
   }

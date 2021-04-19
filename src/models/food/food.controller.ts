@@ -7,6 +7,7 @@ import {
   Body,
   Param,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { FoodService } from './food.service';
 import { FoodEntity } from './entities/food.entity';
@@ -39,7 +40,7 @@ export class FoodController {
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Post('food')
-  create(@Body() food: FoodEntity): Promise<FoodEntity> {
+  create(@Body(new ValidationPipe()) food: FoodEntity): Promise<FoodEntity> {
     return this.foodService.create(food);
   }
 
@@ -49,7 +50,7 @@ export class FoodController {
   @Put('food/:id')
   update(
     @Param('id') id: number,
-    @Body() food: FoodEntity,
+    @Body(new ValidationPipe()) food: FoodEntity,
   ): Promise<UpdateResult> {
     return this.foodService.update(id, food);
   }

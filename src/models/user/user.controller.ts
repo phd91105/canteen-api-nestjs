@@ -6,6 +6,7 @@ import {
   Delete,
   Param,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserEntity } from './entities/user.entity';
 import { UserService } from './user.service';
@@ -41,7 +42,7 @@ export class UserController {
   @Put('user/:id')
   update(
     @Param('id') id: number,
-    @Body() user: UserEntity,
+    @Body(new ValidationPipe()) user: UserEntity,
   ): Promise<UpdateResult> {
     return this.userService.update(id, user);
   }

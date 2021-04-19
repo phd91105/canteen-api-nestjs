@@ -7,6 +7,7 @@ import {
   Body,
   Param,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { CartEntity } from './entities/cart.entity';
@@ -44,7 +45,7 @@ export class CartController {
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: CartEntity })
   @Post('cart')
-  create(@Body() cart: CartEntity): Promise<CartEntity> {
+  create(@Body(new ValidationPipe()) cart: CartEntity): Promise<CartEntity> {
     return this.cartService.create(cart);
   }
 
@@ -54,7 +55,7 @@ export class CartController {
   @Put('cart/:id')
   update(
     @Param('id') id: number,
-    @Body() cart: CartEntity,
+    @Body(new ValidationPipe()) cart: CartEntity,
   ): Promise<UpdateResult> {
     return this.cartService.update(id, cart);
   }
