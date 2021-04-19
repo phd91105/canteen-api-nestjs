@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UserEntity } from '../../user/entities/user.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 @Entity()
 export class RoleEntity {
@@ -18,6 +18,7 @@ export class RoleEntity {
   desc: string;
 
   @IsNotEmpty()
+  @IsNumber()
   @ApiProperty({ type: Number })
   @OneToMany(() => UserEntity, (user: UserEntity) => user.id)
   user: UserEntity[];

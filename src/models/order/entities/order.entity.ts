@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 import { OrderDetailEntity } from '../../orderdetail/entities/orderdetail.entity';
 import { UserEntity } from '../../user/entities/user.entity';
 
@@ -21,6 +21,7 @@ export class OrderEntity {
   address: string;
 
   @Column()
+  @IsNumber()
   @ApiProperty({ type: Number })
   phone: number;
 

@@ -7,15 +7,16 @@ import {
   Body,
   Param,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { RoleEntity } from './entities/role.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/authentication/jwt-auth.guard';
 import { Roles } from '../../auth/authorization/role.decorator';
-import { Role } from '../../enums/role.enum';
-import { RolesGuard } from '../../auth/authorization/role.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { RolesGuard } from 'src/auth/authorization/role.guard';
+import { Role } from 'src/enums/role.enum';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -41,7 +42,7 @@ export class RoleController {
   @Roles(Role.Admin)
   @ApiBody({ type: RoleEntity })
   @Post('role')
-  create(@Body() role: RoleEntity): Promise<RoleEntity> {
+  create(@Body(new ValidationPipe()) role: RoleEntity): Promise<RoleEntity> {
     return this.roleService.create(role);
   }
 
@@ -50,7 +51,7 @@ export class RoleController {
   @Put('role/:id')
   update(
     @Param('id') id: number,
-    @Body() role: RoleEntity,
+    @Body(new ValidationPipe()) role: RoleEntity,
   ): Promise<UpdateResult> {
     return this.roleService.update(id, role);
   }

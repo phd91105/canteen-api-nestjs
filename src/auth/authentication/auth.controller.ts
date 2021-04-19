@@ -1,7 +1,7 @@
 import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { ApiBody, ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
-import { UserEntity } from 'src/models/user/entities/user.entity';
+import { UserEntity } from '../../models/user/entities/user.entity';
 import { AuthService } from './auth.service';
 
 export class LoginModel {

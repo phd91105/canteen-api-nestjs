@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { RoleEntity } from '../../role/entities/role.entity';
 import { OrderEntity } from '../../order/entities/order.entity';
@@ -41,6 +41,7 @@ export class UserEntity {
   @Column()
   password: string;
 
+  @IsNumber()
   @ApiProperty({ type: Number })
   @ManyToOne(() => RoleEntity, () => RoleEntity, {
     eager: true,

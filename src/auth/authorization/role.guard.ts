@@ -17,6 +17,6 @@ export class RolesGuard implements CanActivate {
     const token = request.headers.authorization.split(' ')[1];
     const payload = jwt.decode(token);
     if (roles.indexOf(payload['role']) > -1) return true;
-    throw new HttpException('Forbidden Resource', HttpStatus.FORBIDDEN);
+    throw new HttpException('Access denied', HttpStatus.FORBIDDEN);
   }
 }
