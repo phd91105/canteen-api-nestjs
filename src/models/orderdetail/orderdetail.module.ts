@@ -1,11 +1,11 @@
 import { OrderDetailService } from './orderdetail.service';
 import { OrderDetailController } from './orderdetail.controller';
 import { Module } from '@nestjs/common';
-import { OrderDetail } from './entities/orderdetail.entity';
+import { OrderDetailEntity } from './entities/orderdetail.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OrderDetail])],
+  imports: [TypeOrmModule.forFeature([OrderDetailEntity])],
   controllers: [OrderDetailController],
   providers: [OrderDetailService],
 })

@@ -14,11 +14,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
+  async validate(
+    payload: Record<string, string | number>,
+  ): Promise<Record<string, string | number>> {
+    const { role, uname, uid } = payload;
     return {
-      uid: payload.role,
-      uname: payload.uname,
-      role: payload.role,
+      uid: uid,
+      uname: uname,
+      role: role,
     };
   }
 }

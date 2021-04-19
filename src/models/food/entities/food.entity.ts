@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
-import { Category } from '../../category/entities/category.entity';
-import { OrderDetail } from '../../orderdetail/entities/orderdetail.entity';
+import { CategoryEntity } from '../../category/entities/category.entity';
+import { OrderDetailEntity } from '../../orderdetail/entities/orderdetail.entity';
 import {
   Column,
   Entity,
@@ -10,10 +10,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Cart } from '../../../models/cart/entities/cart.entity';
+import { CartEntity } from '../../../models/cart/entities/cart.entity';
 
 @Entity()
-export class Food {
+export class FoodEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -44,16 +44,19 @@ export class Food {
 
   @IsNotEmpty()
   @ApiProperty({ type: Number })
-  @ManyToOne(() => Category, () => Category, {
+  @ManyToOne(() => CategoryEntity, () => CategoryEntity, {
     eager: true,
     cascade: true,
   })
   @JoinColumn()
-  category: Category;
+  category: CategoryEntity;
 
-  @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail.id)
-  orderDetail: OrderDetail[];
+  @OneToMany(
+    () => OrderDetailEntity,
+    (orderDetail: OrderDetailEntity) => orderDetail.id,
+  )
+  orderDetail: OrderDetailEntity[];
 
-  @OneToMany(() => Cart, (cart: Cart) => cart.id)
-  cart: Cart[];
+  @OneToMany(() => CartEntity, (cart: CartEntity) => cart.id)
+  cart: CartEntity[];
 }

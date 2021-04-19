@@ -7,11 +7,11 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
-import { OrderDetail } from '../../orderdetail/entities/orderdetail.entity';
-import { User } from '../../user/entities/user.entity';
+import { OrderDetailEntity } from '../../orderdetail/entities/orderdetail.entity';
+import { UserEntity } from '../../user/entities/user.entity';
 
 @Entity()
-export class Order {
+export class OrderEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -28,9 +28,12 @@ export class Order {
   @ApiProperty({ type: String })
   status: string;
 
-  @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail.id)
-  orderDetail: OrderDetail[];
+  @OneToMany(
+    () => OrderDetailEntity,
+    (orderDetail: OrderDetailEntity) => orderDetail.id,
+  )
+  orderDetail: OrderDetailEntity[];
 
-  @ManyToOne(() => User, (user: User) => user.id)
-  user: User;
+  @ManyToOne(() => UserEntity, (user: UserEntity) => user.id)
+  user: UserEntity;
 }

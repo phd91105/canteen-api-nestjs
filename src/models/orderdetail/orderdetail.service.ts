@@ -1,29 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { OrderDetail } from './entities/orderdetail.entity';
+import { OrderDetailEntity } from './entities/orderdetail.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UpdateResult, DeleteResult } from 'typeorm';
+import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 
 @Injectable()
 export class OrderDetailService {
   constructor(
-    @InjectRepository(OrderDetail)
-    private readonly orderdetailRepo: Repository<OrderDetail>,
+    @InjectRepository(OrderDetailEntity)
+    private readonly orderdetailRepo: Repository<OrderDetailEntity>,
   ) {}
 
-  async findAll(): Promise<OrderDetail[]> {
+  async findAll(): Promise<OrderDetailEntity[]> {
     return await this.orderdetailRepo.find();
   }
 
-  async findOne(id: number): Promise<OrderDetail> {
+  async findOne(id: number): Promise<OrderDetailEntity> {
     return await this.orderdetailRepo.findOne(id);
   }
 
-  async create(orderdetail: OrderDetail): Promise<OrderDetail> {
+  async create(orderdetail: OrderDetailEntity): Promise<OrderDetailEntity> {
     return await this.orderdetailRepo.save(orderdetail);
   }
 
-  async update(id: number, orderdetail: OrderDetail): Promise<UpdateResult> {
+  async update(
+    id: number,
+    orderdetail: OrderDetailEntity,
+  ): Promise<UpdateResult> {
     return await this.orderdetailRepo.update(id, orderdetail);
   }
 

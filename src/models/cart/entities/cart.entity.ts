@@ -1,5 +1,5 @@
-import { Food } from '../../../models/food/entities/food.entity';
-import { User } from '../../../models/user/entities/user.entity';
+import { FoodEntity } from '../../../models/food/entities/food.entity';
+import { UserEntity } from '../../../models/user/entities/user.entity';
 import {
   Column,
   Entity,
@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Cart {
+export class CartEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,17 +19,17 @@ export class Cart {
   @Column()
   price: number;
 
-  @ManyToOne(() => Food, () => Food, {
+  @ManyToOne(() => FoodEntity, () => FoodEntity, {
     eager: true,
     cascade: true,
   })
   @JoinColumn()
-  food: Food;
+  food: FoodEntity;
 
-  @ManyToOne(() => User, () => User, {
+  @ManyToOne(() => UserEntity, () => UserEntity, {
     eager: true,
     cascade: true,
   })
   @JoinColumn()
-  user: User;
+  user: UserEntity;
 }
