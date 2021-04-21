@@ -16,19 +16,19 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { RolesGuard } from 'src/auth/authorization/role.guard';
 import { Roles } from 'src/auth/authorization/role.decorator';
 import { Role } from 'src/enums/role.enum';
-import { IREST } from 'src/interfaces/rest.interface';
+import { REST } from 'src/interfaces/rest.interface';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Order')
-export class OrderController implements IREST {
+export class OrderController implements REST {
   constructor(private readonly orderService: OrderService) {}
 
   @ApiBearerAuth()
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('orders')
-  findAll(): Promise<OrderEntity[]> {
+  async findAll(): Promise<OrderEntity[]> {
     return this.orderService.findAll();
   }
 
@@ -36,7 +36,7 @@ export class OrderController implements IREST {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('order/:id')
-  findOne(@Param('id') id: number): Promise<OrderEntity> {
+  async findOne(@Param('id') id: number): Promise<OrderEntity> {
     return this.orderService.findOne(id);
   }
 
@@ -45,7 +45,7 @@ export class OrderController implements IREST {
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: OrderEntity })
   @Post('order')
-  create(@Body() order: OrderEntity): Promise<OrderEntity> {
+  async create(@Body() order: OrderEntity): Promise<OrderEntity> {
     return this.orderService.create(order);
   }
 
@@ -53,7 +53,7 @@ export class OrderController implements IREST {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Put('order/:id')
-  update(
+  async update(
     @Param('id') id: number,
     @Body() order: OrderEntity,
   ): Promise<UpdateResult> {
@@ -64,7 +64,7 @@ export class OrderController implements IREST {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Delete('order/:id')
-  delete(@Param('id') id: number): Promise<DeleteResult> {
+  async delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.orderService.delete(id);
   }
 }

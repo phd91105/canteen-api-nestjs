@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { RoleEntity } from './entities/role.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateResult, DeleteResult, Repository } from 'typeorm';
-import { IREST } from 'src/interfaces/rest.interface';
+import { REST } from 'src/interfaces/rest.interface';
 
 @Injectable()
-export class RoleService implements IREST {
+export class RoleService implements REST {
   constructor(
     @InjectRepository(RoleEntity)
     private readonly roleRepo: Repository<RoleEntity>,
