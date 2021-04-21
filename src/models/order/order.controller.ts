@@ -11,16 +11,17 @@ import {
 import { OrderService } from './order.service';
 import { OrderEntity } from './entities/order.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/authentication/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/authentication/jwt-auth.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { RolesGuard } from 'src/auth/authorization/role.guard';
 import { Roles } from 'src/auth/authorization/role.decorator';
 import { Role } from 'src/enums/role.enum';
+import { IREST } from 'src/interfaces/rest.interface';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Order')
-export class OrderController {
+export class OrderController implements IREST {
   constructor(private readonly orderService: OrderService) {}
 
   @ApiBearerAuth()
@@ -35,7 +36,7 @@ export class OrderController {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('order/:id')
-  get(@Param('id') id: number): Promise<OrderEntity> {
+  findOne(@Param('id') id: number): Promise<OrderEntity> {
     return this.orderService.findOne(id);
   }
 
@@ -63,7 +64,7 @@ export class OrderController {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Delete('order/:id')
-  deleteUser(@Param('id') id: number): Promise<DeleteResult> {
+  delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.orderService.delete(id);
   }
 }

@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '../../models/user/entities/user.entity';
+import { UserEntity } from 'src/models/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { LoginModel } from './auth.controller';
+import { LoginDto } from './auth.controller';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +24,7 @@ export class AuthService {
     } else throw new BadRequestException('User Already Exists');
   }
 
-  async login(user: LoginModel): Promise<Record<string, string>> {
+  async login(user: LoginDto): Promise<Record<string, string>> {
     const emailRegex = /\S+@\S+\.\S+/;
     const { username, password } = user;
     const isEmail: boolean = emailRegex.test(username);

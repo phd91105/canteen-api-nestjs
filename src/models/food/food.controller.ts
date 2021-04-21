@@ -11,16 +11,17 @@ import {
 import { FoodService } from './food.service';
 import { FoodEntity } from './entities/food.entity';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/authentication/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/authentication/jwt-auth.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { RolesGuard } from 'src/auth/authorization/role.guard';
 import { Roles } from 'src/auth/authorization/role.decorator';
 import { Role } from 'src/enums/role.enum';
+import { IREST } from 'src/interfaces/rest.interface';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Food')
-export class FoodController {
+export class FoodController implements IREST {
   constructor(private readonly foodService: FoodService) {}
 
   @Get('foods')
@@ -31,7 +32,7 @@ export class FoodController {
 
   @Get('food/:id')
   @Roles(Role.Admin, Role.Staff, Role.User)
-  get(@Param('id') id: number): Promise<FoodEntity> {
+  findOne(@Param('id') id: number): Promise<FoodEntity> {
     return this.foodService.findOne(id);
   }
 
@@ -58,7 +59,7 @@ export class FoodController {
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Delete('food/:id')
-  deleteUser(@Param('id') id: number): Promise<DeleteResult> {
+  delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.foodService.delete(id);
   }
 }

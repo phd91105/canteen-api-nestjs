@@ -11,16 +11,17 @@ import {
 import { RoleService } from './role.service';
 import { RoleEntity } from './entities/role.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/authentication/jwt-auth.guard';
-import { Roles } from '../../auth/authorization/role.decorator';
+import { JwtAuthGuard } from 'src/auth/authentication/jwt-auth.guard';
+import { Roles } from 'src/auth/authorization/role.decorator';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { RolesGuard } from 'src/auth/authorization/role.guard';
 import { Role } from 'src/enums/role.enum';
+import { IREST } from 'src/interfaces/rest.interface';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('User')
-export class RoleController {
+export class RoleController implements IREST {
   constructor(private readonly roleService: RoleService) {}
 
   @ApiBearerAuth()
@@ -33,7 +34,7 @@ export class RoleController {
   @ApiBearerAuth()
   @Roles(Role.Admin)
   @Get('role/:id')
-  get(@Param('id') id: number): Promise<RoleEntity> {
+  findOne(@Param('id') id: number): Promise<RoleEntity> {
     return this.roleService.findOne(id);
   }
 
@@ -58,7 +59,7 @@ export class RoleController {
   @ApiBearerAuth()
   @Roles(Role.Admin)
   @Delete('role/:id')
-  deleteUser(@Param('id') id: number): Promise<DeleteResult> {
+  delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.roleService.delete(id);
   }
 }

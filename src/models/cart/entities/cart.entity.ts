@@ -1,5 +1,5 @@
-import { FoodEntity } from '../../../models/food/entities/food.entity';
-import { UserEntity } from '../../../models/user/entities/user.entity';
+import { FoodEntity } from 'src/../models/food/entities/food.entity';
+import { UserEntity } from 'src/../models/user/entities/user.entity';
 import {
   Column,
   Entity,

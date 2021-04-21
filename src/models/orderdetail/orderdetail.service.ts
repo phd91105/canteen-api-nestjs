@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { OrderDetailEntity } from './entities/orderdetail.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
+import { IREST } from 'src/interfaces/rest.interface';
 
 @Injectable()
-export class OrderDetailService {
+export class OrderDetailService implements IREST {
   constructor(
     @InjectRepository(OrderDetailEntity)
     private readonly orderdetailRepo: Repository<OrderDetailEntity>,
