@@ -16,8 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        node: [14]
+        os: [windows-2019]
+        node: [15]
 
     steps:
       - name: Checkout 🛎
@@ -44,3 +44,6 @@ jobs:
 
       - name: Install dependencies 👨🏻‍💻
         run: yarn
+
+      - name: Run linter 👀
+        run: yarn lint
