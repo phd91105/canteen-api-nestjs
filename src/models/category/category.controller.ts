@@ -11,16 +11,17 @@ import {
 import { CategoryService } from './category.service';
 import { CategoryEntity } from './entities/category.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/authentication/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/authentication/jwt-auth.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { RolesGuard } from 'src/auth/authorization/role.guard';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/auth/authorization/role.decorator';
+import { IREST } from 'src/interfaces/rest.interface';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Food')
-export class CategoryController {
+export class CategoryController implements IREST {
   constructor(private readonly catService: CategoryService) {}
 
   @ApiBearerAuth()
@@ -35,7 +36,7 @@ export class CategoryController {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('category/:id')
-  get(@Param('id') id: number): Promise<CategoryEntity> {
+  findOne(@Param('id') id: number): Promise<CategoryEntity> {
     return this.catService.findOne(id);
   }
 
@@ -63,7 +64,7 @@ export class CategoryController {
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Delete('category/:id')
-  deleteUser(@Param('id') id: number): Promise<DeleteResult> {
+  delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.catService.delete(id);
   }
 }

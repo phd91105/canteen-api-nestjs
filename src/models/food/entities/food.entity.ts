@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { CategoryEntity } from '../../category/entities/category.entity';
-import { OrderDetailEntity } from '../../orderdetail/entities/orderdetail.entity';
+import { CategoryEntity } from 'src/category/entities/category.entity';
+import { OrderDetailEntity } from 'src/orderdetail/entities/orderdetail.entity';
 import {
   Column,
   Entity,
@@ -10,7 +10,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { CartEntity } from '../../../models/cart/entities/cart.entity';
+import { CartEntity } from 'src/../models/cart/entities/cart.entity';
 
 @Entity()
 export class FoodEntity {

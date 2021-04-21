@@ -11,16 +11,17 @@ import {
 import { CartService } from './cart.service';
 import { CartEntity } from './entities/cart.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../auth/authentication/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/authentication/jwt-auth.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { RolesGuard } from 'src/auth/authorization/role.guard';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/auth/authorization/role.decorator';
+import { IREST } from 'src/interfaces/rest.interface';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Cart')
-export class CartController {
+export class CartController implements IREST {
   constructor(private readonly cartService: CartService) {}
 
   @ApiBearerAuth()
@@ -35,7 +36,7 @@ export class CartController {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('cart/:id')
-  get(@Param('id') id: number): Promise<CartEntity> {
+  findOne(@Param('id') id: number): Promise<CartEntity> {
     return this.cartService.findOne(id);
   }
 
@@ -63,7 +64,7 @@ export class CartController {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Delete('cart/:id')
-  deleteUser(@Param('id') id: number): Promise<DeleteResult> {
+  delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.cartService.delete(id);
   }
 }

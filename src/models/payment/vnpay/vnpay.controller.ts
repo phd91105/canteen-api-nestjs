@@ -1,7 +1,7 @@
 import { Controller, Get, Query, Redirect } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { VnpayService } from './vnpay.service';
-import { IPaymentParams } from 'src/interfaces/payment';
+import { IPaymentParams } from 'src/interfaces/payment.interface';
 
 @Controller('vnpay')
 @ApiTags('Payment')

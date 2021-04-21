@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { VNPay } from 'vn-payments';
 import * as dateFormat from 'dateformat';
-import { IPaymentParams } from 'src/interfaces/payment';
+import { IPaymentParams } from 'src/interfaces/payment.interface';
 import AppConfiguration from 'src/config/app.config';
 
 @Injectable()

@@ -8,8 +8,8 @@ import {
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { RoleEntity } from '../../role/entities/role.entity';
-import { OrderEntity } from '../../order/entities/order.entity';
+import { RoleEntity } from 'src/role/entities/role.entity';
+import { OrderEntity } from 'src/order/entities/order.entity';
 
 @Entity()
 export class UserEntity {
