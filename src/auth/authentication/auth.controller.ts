@@ -1,10 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBody, ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
-import { UserEntity } from '../../models/user/entities/user.entity';
+import { UserEntity } from 'src/models/user/entities/user.entity';
 import { AuthService } from './auth.service';
 
-export class LoginModel {
+export class LoginDto {
   @IsNotEmpty()
   @ApiProperty({ type: String })
   readonly username: string;
@@ -18,8 +18,8 @@ export class LoginModel {
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
-  @ApiBody({ type: LoginModel })
-  login(@Body() user: LoginModel): Promise<Record<string, string>> {
+  @ApiBody({ type: LoginDto })
+  login(@Body() user: LoginDto): Promise<Record<string, string>> {
     return this.authService.login(user);
   }
 

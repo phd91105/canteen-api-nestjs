@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as crypto from 'crypto';
 import AppConfiguration from 'src/config/app.config';
-import { IPaymentParams } from 'src/interfaces/payment';
+import { IPaymentParams } from 'src/interfaces/payment.interface';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()

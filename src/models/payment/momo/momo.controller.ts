@@ -1,7 +1,7 @@
 import { Controller, Get, Query, Redirect } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MomoService } from './momo.service';
-import { IPaymentParams } from 'src/interfaces/payment';
+import { IPaymentParams } from 'src/interfaces/payment.interface';
 
 @Controller('momo')
 @ApiTags('Payment')

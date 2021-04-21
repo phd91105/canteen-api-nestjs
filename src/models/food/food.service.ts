@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { FoodEntity } from './entities/food.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateResult, DeleteResult, Repository } from 'typeorm';
+import { IREST } from 'src/interfaces/rest.interface';
 
 @Injectable()
-export class FoodService {
+export class FoodService implements IREST {
   constructor(
     @InjectRepository(FoodEntity)
     private readonly foodRepo: Repository<FoodEntity>,
