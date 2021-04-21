@@ -25,21 +25,21 @@ export class UserController {
   @ApiBearerAuth()
   @Roles(Role.Admin)
   @Get('users')
-  findAll(): Promise<UserEntity[]> {
+  async findAll(): Promise<UserEntity[]> {
     return this.userService.findAll();
   }
 
   @ApiBearerAuth()
   @Roles(Role.Admin, Role.Staff)
   @Get('user/:id')
-  findOne(@Param('id') id: number): Promise<UserEntity> {
+  async findOne(@Param('id') id: number): Promise<UserEntity> {
     return this.userService.findOne(id);
   }
 
   @ApiBearerAuth()
   @Roles(Role.Admin, Role.Staff)
   @Put('user/:id')
-  update(
+  async update(
     @Param('id') id: number,
     @Body() user: UserEntity,
   ): Promise<UpdateResult> {
@@ -49,7 +49,7 @@ export class UserController {
   @ApiBearerAuth()
   @Roles(Role.Admin)
   @Delete('user/:id')
-  delete(@Param('id') id: number): Promise<DeleteResult> {
+  async delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.userService.delete(id);
   }
 }

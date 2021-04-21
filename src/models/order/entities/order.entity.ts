@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsNotEmpty, IsNumber } from 'class-validator';
-import { OrderDetailEntity } from 'src/orderdetail/entities/orderdetail.entity';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { OrderDetailEntity } from 'src/models/orderdetail/entities/orderdetail.entity';
+import { UserEntity } from 'src/models/user/entities/user.entity';
 
 @Entity()
 export class OrderEntity {

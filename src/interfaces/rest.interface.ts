@@ -1,4 +1,4 @@
-export interface IREST {
+export interface REST {
   findAll(): Promise<any>;
   findOne(id: number): Promise<any>;
   create(body: any): Promise<any>;

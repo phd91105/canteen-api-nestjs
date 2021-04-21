@@ -16,23 +16,23 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { RolesGuard } from 'src/auth/authorization/role.guard';
 import { Roles } from 'src/auth/authorization/role.decorator';
 import { Role } from 'src/enums/role.enum';
-import { IREST } from 'src/interfaces/rest.interface';
+import { REST } from 'src/interfaces/rest.interface';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Food')
-export class FoodController implements IREST {
+export class FoodController implements REST {
   constructor(private readonly foodService: FoodService) {}
 
   @Get('foods')
   @Roles(Role.Admin, Role.Staff, Role.User)
-  findAll(): Promise<FoodEntity[]> {
+  async findAll(): Promise<FoodEntity[]> {
     return this.foodService.findAll();
   }
 
   @Get('food/:id')
   @Roles(Role.Admin, Role.Staff, Role.User)
-  findOne(@Param('id') id: number): Promise<FoodEntity> {
+  async findOne(@Param('id') id: number): Promise<FoodEntity> {
     return this.foodService.findOne(id);
   }
 
@@ -40,7 +40,7 @@ export class FoodController implements IREST {
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Post('food')
-  create(@Body() food: FoodEntity): Promise<FoodEntity> {
+  async create(@Body() food: FoodEntity): Promise<FoodEntity> {
     return this.foodService.create(food);
   }
 
@@ -48,7 +48,7 @@ export class FoodController implements IREST {
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Put('food/:id')
-  update(
+  async update(
     @Param('id') id: number,
     @Body() food: FoodEntity,
   ): Promise<UpdateResult> {
@@ -59,7 +59,7 @@ export class FoodController implements IREST {
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Delete('food/:id')
-  delete(@Param('id') id: number): Promise<DeleteResult> {
+  async delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.foodService.delete(id);
   }
 }

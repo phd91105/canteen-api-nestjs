@@ -19,13 +19,13 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
   @ApiBody({ type: LoginDto })
-  login(@Body() user: LoginDto): Promise<Record<string, string>> {
+  async login(@Body() user: LoginDto): Promise<Record<string, string>> {
     return this.authService.login(user);
   }
 
   @Post('register')
   @ApiBody({ type: UserEntity })
-  register(@Body() user: UserEntity): Promise<UserEntity> {
+  async register(@Body() user: UserEntity): Promise<UserEntity> {
     return this.authService.register(user);
   }
 }

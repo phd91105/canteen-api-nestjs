@@ -16,19 +16,19 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { RolesGuard } from 'src/auth/authorization/role.guard';
 import { Roles } from 'src/auth/authorization/role.decorator';
 import { Role } from 'src/enums/role.enum';
-import { IREST } from 'src/interfaces/rest.interface';
+import { REST } from 'src/interfaces/rest.interface';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('OrderDetail')
-export class OrderDetailController implements IREST {
+export class OrderDetailController implements REST {
   constructor(private readonly orderdetailService: OrderDetailService) {}
 
   @ApiBearerAuth()
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('orderdetails')
-  findAll(): Promise<OrderDetailEntity[]> {
+  async findAll(): Promise<OrderDetailEntity[]> {
     return this.orderdetailService.findAll();
   }
 
@@ -36,7 +36,7 @@ export class OrderDetailController implements IREST {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('orderdetail/:id')
-  findOne(@Param('id') id: number): Promise<OrderDetailEntity> {
+  async findOne(@Param('id') id: number): Promise<OrderDetailEntity> {
     return this.orderdetailService.findOne(id);
   }
 
@@ -45,7 +45,7 @@ export class OrderDetailController implements IREST {
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: OrderDetailEntity })
   @Post('orderdetail')
-  create(@Body() orderdetail: OrderDetailEntity): Promise<OrderDetailEntity> {
+  async create(@Body() orderdetail: OrderDetailEntity): Promise<OrderDetailEntity> {
     return this.orderdetailService.create(orderdetail);
   }
 
@@ -53,7 +53,7 @@ export class OrderDetailController implements IREST {
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Put('orderdetail/:id')
-  update(
+  async update(
     @Param('id') id: number,
     @Body() orderdetail: OrderDetailEntity,
   ): Promise<UpdateResult> {
@@ -64,7 +64,7 @@ export class OrderDetailController implements IREST {
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Delete('orderdetail/:id')
-  delete(@Param('id') id: number): Promise<DeleteResult> {
+  async delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.orderdetailService.delete(id);
   }
 }

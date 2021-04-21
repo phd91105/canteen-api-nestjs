@@ -6,10 +6,16 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  MinLength,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { RoleEntity } from 'src/role/entities/role.entity';
-import { OrderEntity } from 'src/order/entities/order.entity';
+import { RoleEntity } from 'src/models/role/entities/role.entity';
+import { OrderEntity } from 'src/models/order/entities/order.entity';
 
 @Entity()
 export class UserEntity {
@@ -31,12 +37,18 @@ export class UserEntity {
 
   @IsString()
   @IsNotEmpty()
+  @MinLength(5, {
+    message: 'Username is too short',
+  })
   @ApiProperty({ type: String })
   @Column()
   username: string;
 
   @IsString()
   @IsNotEmpty()
+  @MinLength(6, {
+    message: 'Password is too short',
+  })
   @ApiProperty({ type: String })
   @Column()
   password: string;

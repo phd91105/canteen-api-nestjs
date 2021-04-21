@@ -16,19 +16,19 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { RolesGuard } from 'src/auth/authorization/role.guard';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/auth/authorization/role.decorator';
-import { IREST } from 'src/interfaces/rest.interface';
+import { REST } from 'src/interfaces/rest.interface';
 
 @Controller()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Cart')
-export class CartController implements IREST {
+export class CartController implements REST {
   constructor(private readonly cartService: CartService) {}
 
   @ApiBearerAuth()
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('carts')
-  findAll(): Promise<CartEntity[]> {
+  async findAll(): Promise<CartEntity[]> {
     return this.cartService.findAll();
   }
 
@@ -36,7 +36,7 @@ export class CartController implements IREST {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Get('cart/:id')
-  findOne(@Param('id') id: number): Promise<CartEntity> {
+  async findOne(@Param('id') id: number): Promise<CartEntity> {
     return this.cartService.findOne(id);
   }
 
@@ -45,7 +45,7 @@ export class CartController implements IREST {
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: CartEntity })
   @Post('cart')
-  create(@Body() cart: CartEntity): Promise<CartEntity> {
+  async create(@Body() cart: CartEntity): Promise<CartEntity> {
     return this.cartService.create(cart);
   }
 
@@ -53,7 +53,7 @@ export class CartController implements IREST {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Put('cart/:id')
-  update(
+  async update(
     @Param('id') id: number,
     @Body() cart: CartEntity,
   ): Promise<UpdateResult> {
@@ -64,7 +64,7 @@ export class CartController implements IREST {
   @Roles(Role.Admin, Role.Staff, Role.User)
   @UseGuards(JwtAuthGuard)
   @Delete('cart/:id')
-  delete(@Param('id') id: number): Promise<DeleteResult> {
+  async delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.cartService.delete(id);
   }
 }
