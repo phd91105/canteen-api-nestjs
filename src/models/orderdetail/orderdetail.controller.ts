@@ -45,7 +45,9 @@ export class OrderDetailController implements REST {
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: OrderDetailEntity })
   @Post('orderdetail')
-  async create(@Body() orderdetail: OrderDetailEntity): Promise<OrderDetailEntity> {
+  async create(
+    @Body() orderdetail: OrderDetailEntity,
+  ): Promise<OrderDetailEntity> {
     return this.orderdetailService.create(orderdetail);
   }
 
