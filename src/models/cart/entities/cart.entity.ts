@@ -19,14 +19,14 @@ export class CartEntity {
   @Column()
   price: number;
 
-  @ManyToOne(() => FoodEntity, () => FoodEntity, {
+  @ManyToOne(() => FoodEntity, {
     eager: true,
     cascade: true,
   })
   @JoinColumn()
   food: FoodEntity;
 
-  @ManyToOne(() => UserEntity, () => UserEntity, {
+  @ManyToOne(() => UserEntity, {
     eager: true,
     cascade: true,
   })

@@ -45,7 +45,7 @@ export class FoodEntity {
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty({ type: Number })
-  @ManyToOne(() => CategoryEntity, () => CategoryEntity, {
+  @ManyToOne(() => CategoryEntity, {
     eager: true,
     cascade: true,
   })

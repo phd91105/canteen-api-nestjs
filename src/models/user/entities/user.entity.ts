@@ -55,7 +55,7 @@ export class UserEntity {
 
   @IsNumber()
   @ApiProperty({ type: Number })
-  @ManyToOne(() => RoleEntity, () => RoleEntity, {
+  @ManyToOne(() => RoleEntity, {
     eager: true,
     cascade: true,
   })
