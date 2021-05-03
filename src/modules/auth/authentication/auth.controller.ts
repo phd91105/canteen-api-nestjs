@@ -1,8 +1,18 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
+import { UserEntity } from 'src/modules/user/user.entity';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login-auth.dto';
-import { RegiterDto } from './dto/register-auth.dto';
+
+export class LoginDto {
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  readonly username: string;
+
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  readonly password: string;
+}
 
 @Controller()
 export class AuthController {
@@ -14,8 +24,8 @@ export class AuthController {
   }
 
   @Post('register')
-  @ApiBody({ type: RegiterDto })
-  async register(@Body() user: RegiterDto): Promise<RegiterDto> {
+  @ApiBody({ type: UserEntity })
+  async register(@Body() user: UserEntity): Promise<UserEntity> {
     return this.authService.register(user);
   }
 }

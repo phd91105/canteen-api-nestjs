@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { OrderDetailEntity } from './entities/orderdetail.entity';
+import { OrderDetailEntity } from './orderdetail.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { REST } from 'src/interfaces/rest.interface';

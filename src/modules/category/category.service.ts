@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CategoryEntity } from './entities/category.entity';
+import { CategoryEntity } from './category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateResult, DeleteResult, Repository } from 'typeorm';
 import { REST } from 'src/interfaces/rest.interface';

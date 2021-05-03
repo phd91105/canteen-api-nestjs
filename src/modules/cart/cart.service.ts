@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CartEntity } from './entities/cart.entity';
+import { CartEntity } from './cart.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateResult, DeleteResult, Repository } from 'typeorm';
 

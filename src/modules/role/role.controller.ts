@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { RoleService } from './role.service';
-import { RoleEntity } from './entities/role.entity';
+import { RoleEntity } from './role.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/authentication/jwt-auth.guard';
 import { Roles } from 'src/modules/auth/authorization/role.decorator';
