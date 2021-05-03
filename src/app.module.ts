@@ -1,18 +1,18 @@
-import { AuthModule } from './auth/authentication/auth.module';
+import { AuthModule } from './modules/auth/authentication/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CartModule } from './models/cart/cart.module';
-import { CategoryModule } from './models/category/category.module';
-import { FoodModule } from './models/food/food.module';
-import { OrderModule } from './models/order/order.module';
-import { OrderDetailModule } from './models/orderdetail/orderdetail.module';
-import { MomoModule } from './models/payment/momo/momo.module';
-import { VnpayModule } from './models/payment/vnpay/vnpay.module';
-import { RoleModule } from './models/role/role.module';
-import { UserModule } from './models/user/user.module';
+import { CartModule } from './modules/cart/cart.module';
+import { CategoryModule } from './modules/category/category.module';
+import { FoodModule } from './modules/food/food.module';
+import { OrderModule } from './modules/order/order.module';
+import { OrderDetailModule } from './modules/orderdetail/orderdetail.module';
+import { MomoModule } from './modules/payment/momo/momo.module';
+import { VnpayModule } from './modules/payment/vnpay/vnpay.module';
+import { RoleModule } from './modules/role/role.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
