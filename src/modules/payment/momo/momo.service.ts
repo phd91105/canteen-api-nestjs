@@ -15,13 +15,13 @@ export class MomoService {
     const serectkey = AppConfiguration.payment.momo.secret;
     const orderInfo = payParam.orderInfo || 'pay with MoMo';
     const returnUrl = AppConfiguration.payment.momo.returnUrl;
-    const notifyurl = 'https://momo.vn/';
+    const notifyUrl = 'https://momo.vn/';
     const amount = payParam.amount;
     const orderId = uuidv4();
     const requestId = uuidv4();
     const requestType = 'captureMoMoWallet';
     const extraData = 'merchantName=cantin-hutech';
-    const rawSignature = `partnerCode=${partnerCode}&accessKey=${accessKey}&requestId=${requestId}&amount=${amount}&orderId=${orderId}&orderInfo=${orderInfo}&returnUrl=${returnUrl}&notifyUrl=${notifyurl}&extraData=${extraData}`;
+    const rawSignature = `partnerCode=${partnerCode}&accessKey=${accessKey}&requestId=${requestId}&amount=${amount}&orderId=${orderId}&orderInfo=${orderInfo}&returnUrl=${returnUrl}&notifyUrl=${notifyUrl}&extraData=${extraData}`;
 
     const signature = crypto
       .createHmac('sha256', serectkey)
@@ -29,17 +29,17 @@ export class MomoService {
       .digest('hex');
 
     const body = JSON.stringify({
-      partnerCode: partnerCode,
-      accessKey: accessKey,
-      requestId: requestId,
-      amount: amount,
-      orderId: orderId,
-      orderInfo: orderInfo,
-      returnUrl: returnUrl,
-      notifyUrl: notifyurl,
-      extraData: extraData,
-      requestType: requestType,
-      signature: signature,
+      partnerCode,
+      accessKey,
+      requestId,
+      amount,
+      orderId,
+      orderInfo,
+      returnUrl,
+      notifyUrl,
+      extraData,
+      requestType,
+      signature,
     });
     return await axios
       .post(endpoint, body)
