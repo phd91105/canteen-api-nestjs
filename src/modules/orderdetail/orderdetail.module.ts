@@ -1,7 +1,7 @@
 import { OrderDetailService } from './orderdetail.service';
 import { OrderDetailController } from './orderdetail.controller';
 import { Module } from '@nestjs/common';
-import { OrderDetailEntity } from './orderdetail.entity';
+import { OrderDetailEntity } from './entities/orderdetail.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({

@@ -1,10 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from 'src/modules/user/user.entity';
+import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { LoginDto } from './auth.controller';
+import { LoginDto } from './dto/login-auth.dto';
+import { RegiterDto } from './dto/register-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(user: UserEntity): Promise<UserEntity> {
+  async register(user: RegiterDto): Promise<RegiterDto> {
     const username: string = user.username;
     const usr: UserEntity = await this.userRepo.findOne({ username });
     if (!usr) {
@@ -40,7 +41,7 @@ export class AuthService {
     const jwt: string = this.jwtService.sign({
       uid: userInfo.id,
       uname: userInfo.username,
-      role: userInfo.role.name,
+      role: userInfo.role ? userInfo.role.name : 'user',
     });
     return { message: 'Login Successful', token: jwt };
   }

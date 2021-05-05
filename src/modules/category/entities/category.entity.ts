@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UserEntity } from 'src/modules/user/user.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
+import { FoodEntity } from 'src/modules/food/entities/food.entity';
 
 @Entity()
-export class RoleEntity {
+export class CategoryEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -17,9 +17,6 @@ export class RoleEntity {
   @ApiProperty({ type: String })
   desc: string;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty({ type: Number })
-  @OneToMany(() => UserEntity, (user: UserEntity) => user.id)
-  user: UserEntity[];
+  @OneToMany(() => FoodEntity, (food: FoodEntity) => food.id)
+  food: FoodEntity[];
 }
