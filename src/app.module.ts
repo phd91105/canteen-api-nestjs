@@ -2,8 +2,6 @@ import { AuthModule } from './modules/auth/authentication/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { CartModule } from './modules/cart/cart.module';
 import { CategoryModule } from './modules/category/category.module';
 import { FoodModule } from './modules/food/food.module';
@@ -29,7 +27,5 @@ import { UserModule } from './modules/user/user.module';
     OrderModule,
     CartModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

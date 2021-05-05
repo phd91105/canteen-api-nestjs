@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { UserEntity } from 'src/modules/user/user.entity';
+import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty, IsNumber } from 'class-validator';
 

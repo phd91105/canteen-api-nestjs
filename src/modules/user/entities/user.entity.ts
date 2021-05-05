@@ -14,8 +14,8 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { RoleEntity } from 'src/modules/role/role.entity';
-import { OrderEntity } from 'src/modules/order/order.entity';
+import { RoleEntity } from 'src/modules/role/entities/role.entity';
+import { OrderEntity } from 'src/modules/order/entities/order.entity';
 
 @Entity()
 export class UserEntity {

@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
-import { CartEntity } from './cart.entity';
+import { CartEntity } from './entities/cart.entity';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/authentication/jwt-auth.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';

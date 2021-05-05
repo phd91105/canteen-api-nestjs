@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { FoodService } from './food.service';
-import { FoodEntity } from './food.entity';
+import { FoodEntity } from './entities/food.entity';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/authentication/jwt-auth.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';
