@@ -1,11 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-<<<<<<< HEAD:src/modules/auth/authentication/auth.service.ts
 import { UserEntity } from 'src/modules/user/entities/user.entity';
-=======
-import { UserEntity } from 'src/modules/user/user.entity';
->>>>>>> 9b12b87 (update struct):src/auth/authentication/auth.service.ts
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login-auth.dto';
