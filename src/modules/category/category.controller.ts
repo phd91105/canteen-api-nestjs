@@ -24,17 +24,13 @@ import { REST } from 'src/interfaces/rest.interface';
 export class CategoryController implements REST {
   constructor(private readonly catService: CategoryService) {}
 
-  @ApiBearerAuth()
   @Roles(Role.Admin, Role.Staff, Role.User)
-  @UseGuards(JwtAuthGuard)
   @Get('categories')
   async findAll(): Promise<CategoryEntity[]> {
     return this.catService.findAll();
   }
 
-  @ApiBearerAuth()
   @Roles(Role.Admin, Role.Staff, Role.User)
-  @UseGuards(JwtAuthGuard)
   @Get('category/:id')
   async findOne(@Param('id') id: number): Promise<CategoryEntity> {
     return this.catService.findOne(id);
