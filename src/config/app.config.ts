@@ -3,7 +3,7 @@ type AppConfigurationType = {
   port: number;
   jwt: {
     secret: string;
-    expiration: number;
+    expiration: string | number;
   };
   redis: {
     master: {
@@ -35,7 +35,7 @@ const AppConfiguration: AppConfigurationType = {
   port: Number(process.env.PORT) || 8080,
   jwt: {
     secret: process.env.JWT_SECRET || 'sAmPlEsEcReT',
-    expiration: 3600,
+    expiration: '3d',
   },
   redis: {
     master: {

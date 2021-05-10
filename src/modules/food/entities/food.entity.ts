@@ -12,7 +12,6 @@ import {
 } from 'typeorm';
 import { CartEntity } from 'src/modules/cart/entities/cart.entity';
 
-
 @Entity()
 export class FoodEntity {
   @PrimaryGeneratedColumn()
@@ -41,6 +40,7 @@ export class FoodEntity {
   price: number;
 
   @Column()
+  @ApiProperty({ type: String })
   image: string;
 
   @IsNotEmpty()
