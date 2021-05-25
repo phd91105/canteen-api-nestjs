@@ -19,7 +19,6 @@ import { Role } from 'src/enums/role.enum';
 import { REST } from 'src/interfaces/rest.interface';
 
 @Controller()
-@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Food')
 export class FoodController implements REST {
   constructor(private readonly foodService: FoodService) {}
@@ -37,6 +36,7 @@ export class FoodController implements REST {
   }
 
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin, Role.Staff)
   @UseGuards(JwtAuthGuard)
   @Post('food')
@@ -46,7 +46,7 @@ export class FoodController implements REST {
 
   @ApiBearerAuth()
   @Roles(Role.Admin, Role.Staff)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Put('food/:id')
   async update(
     @Param('id') id: number,
@@ -57,7 +57,7 @@ export class FoodController implements REST {
 
   @ApiBearerAuth()
   @Roles(Role.Admin, Role.Staff)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete('food/:id')
   async delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.foodService.delete(id);
