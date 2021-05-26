@@ -1,36 +1,6 @@
-type AppConfigurationType = {
-  nodeEnv: string;
-  port: number;
-  jwt: {
-    secret: string;
-    expiration: string | number;
-  };
-  redis: {
-    master: {
-      host: string;
-      port: number;
-    };
-    slave: {
-      host: string;
-      port: number;
-    };
-  };
-  payment: {
-    momo: {
-      partnerCode: string;
-      accessKey: string;
-      secret: string;
-      returnUrl: string;
-    };
-    vnpay: {
-      secret: string;
-      merchant: string;
-      returnUrl: string;
-    };
-  };
-};
+import 'dotenv/config';
 
-const AppConfiguration: AppConfigurationType = {
+const AppConfiguration = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: Number(process.env.PORT) || 8080,
   jwt: {
